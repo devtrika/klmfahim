@@ -28,7 +28,7 @@
                     <span><small>{{ __('front.address') }}</small>{{ $site->{$lang.'_address'} }}</span>
                 </div>
             </div>
-            @if (Str::startsWith($site->lat, 'https://www.google.com/maps/embed'))
+            @if (Str::startsWith((string) $site->lat, 'https://www.google.com/maps'))
                 <div class="map"><iframe src="{{ $site->lat }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="map"></iframe></div>
             @endif
         </div>

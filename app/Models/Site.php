@@ -16,9 +16,13 @@ class Site extends Model {
         'ar_address' => 'دبي، الإمارات العربية المتحدة', 'en_address' => 'Dubai, United Arab Emirates',
         'ar_footerword' => 'كلم فهيم شريكك في تأسيس شركتك في الإمارات من أول فكرة لحد الرخصة والإقامة والحساب البنكي، بخطوات واضحة وأسعار شفافة.',
         'en_footerword' => 'Call Fahim is your partner for setting up a business in the UAE — from the first idea to the licence, residence visa and bank account, with clear steps and transparent pricing.',
-        'tags' => 'business setup, UAE, Dubai', 'email' => '', 'phone' => '', 'mobile' => '', 'fax' => '0',
-        'facebook' => '', 'twitter' => '', 'google' => '', 'youtube' => '', 'instagram' => '', 'whatsapp' => '',
-        'currency' => 'AED', 'vat_rate' => 5, 'base' => 0, 'branches' => 0, 'structure' => 0, 'mantis' => 0,
+        'tags' => 'business setup, UAE, Dubai', 'fax' => '0',
+        // Contact details used until they are changed in the admin panel.
+        'email' => 'bettercallfahim@gmail.com', 'phone' => '+971 52 521 5982', 'mobile' => '+971 52 521 5982',
+        'whatsapp' => 'https://wa.me/971525215982',
+        'lat' => 'https://www.google.com/maps?q=Dubai%2C%20United%20Arab%20Emirates&output=embed',
+        'facebook' => '', 'twitter' => '', 'google' => '', 'youtube' => '', 'instagram' => '',
+        'currency' => 'AED', 'vat_rate' => 5, 'base' => 1890, 'branches' => 12, 'structure' => 50, 'mantis' => 60,
     ];
 
     /** The settings row, or unsaved defaults when the table is still empty. */

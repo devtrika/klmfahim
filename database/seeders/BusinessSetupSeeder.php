@@ -25,6 +25,7 @@ class BusinessSetupSeeder extends Seeder
         $this->features();
         $this->calculator();
         $this->partners();
+        $this->posts();
         $this->permissions();
         $this->fillUuids();
     }
@@ -48,6 +49,19 @@ class BusinessSetupSeeder extends Seeder
         $superGroup = (int) config('permissions.super_group');
         if (! DB::table('groups')->where('id', $superGroup)->exists()) {
             DB::table('groups')->insert(['id' => $superGroup, 'ar_name' => 'الإدارة العليا', 'en_name' => 'Super Admin', 'created_at' => now(), 'updated_at' => now()]);
+        }
+
+        // Fill contact details and stats that are still blank or zero; values
+        // already entered in the admin panel are left alone.
+        $site = Site::query()->first();
+        $blank = [];
+        foreach (['email', 'phone', 'mobile', 'whatsapp', 'lat', 'base', 'branches', 'structure', 'mantis'] as $field) {
+            if (blank($site->$field) || $site->$field === 0 || $site->$field === '0') {
+                $blank[$field] = Site::DEFAULTS[$field];
+            }
+        }
+        if ($blank) {
+            DB::table('site')->where('id', $site->id)->update($blank);
         }
 
         // First run only: after that the site settings belong to the admin panel.
@@ -241,6 +255,43 @@ class BusinessSetupSeeder extends Seeder
             DB::table('clients')->insert([
                 'ar_title' => $ar, 'en_title' => $en, 'image' => null, 'href' => null,
                 'ar_desc' => null, 'en_desc' => null, 'created_at' => now(), 'updated_at' => now(),
+            ]);
+        }
+    }
+
+    private function posts(): void
+    {
+        if (DB::table('blogs')->exists()) {
+            return;
+        }
+
+        $rows = [
+            [
+                'كيف تختار بين المنطقة الحرة والبر الرئيسي؟',
+                'Free Zone or Mainland: which one fits your business?',
+                '<p>المنطقة الحرة بتديك ملكية أجنبية كاملة وتكلفة بداية أقل، وده مناسب للخدمات والتجارة الدولية والشركات الناشئة. البر الرئيسي بيسمحلك تبيع لأي عميل في الإمارات وتشتغل مع الجهات الحكومية بدون وسيط.</p><p>لو أغلب عملائك جوه الدولة أو محتاج محل فعلي، البر الرئيسي غالبًا الأنسب. ولو شغلك أونلاين أو مع عملاء برة الإمارات، المنطقة الحرة بتوفرلك كتير. احسب الاتنين في حاسبة التكلفة وقارن بنفسك.</p>',
+                '<p>A free zone gives you full foreign ownership and a lower starting cost, which suits services, international trade and start-ups. A mainland company lets you sell to any customer in the UAE and work with government entities directly.</p><p>If most of your clients are inside the country or you need a physical shop, mainland is usually the better fit. If you work online or with clients abroad, a free zone saves a lot. Price both in the cost calculator and compare.</p>',
+            ],
+            [
+                'خطوات استخراج تأشيرة الإقامة لمستثمر في الإمارات',
+                'How the UAE investor residence visa works, step by step',
+                '<p>بعد إصدار الرخصة والبطاقة المنشأة، بنقدّم على تصريح الدخول، وبعدها الفحص الطبي والبصمة للهوية الإماراتية، وفي الآخر بتتختم الإقامة.</p><p>العملية بتاخد في المتوسط من أسبوعين لتلات أسابيع، وفريقنا بيتابعها خطوة بخطوة ويبعتلك التحديثات على واتساب.</p>',
+                '<p>Once the licence and establishment card are issued, we apply for the entry permit, then complete the medical test and Emirates ID biometrics, and finally the residence visa is stamped.</p><p>The process usually takes two to three weeks, and our team follows every step and sends you updates on WhatsApp.</p>',
+            ],
+            [
+                'التسجيل في ضريبة الشركات: إيه المطلوب منك؟',
+                'Corporate tax registration: what you need to know',
+                '<p>كل شركة في الإمارات لازم تتسجل في ضريبة الشركات لدى الهيئة الاتحادية للضرائب، حتى لو أرباحها تحت الحد المعفى. التأخير في التسجيل عليه غرامة.</p><p>محتاج الرخصة التجارية وعقد التأسيس وبيانات الملاك، واحنا بنخلّص التسجيل والإقرارات بالنيابة عنك.</p>',
+                '<p>Every company in the UAE must register for corporate tax with the Federal Tax Authority, even if its profit is below the exempt threshold, and late registration carries a penalty.</p><p>You need your trade licence, memorandum of association and owner details, and we can complete the registration and filings on your behalf.</p>',
+            ],
+        ];
+
+        foreach ($rows as $i => [$arTitle, $enTitle, $arDesc, $enDesc]) {
+            DB::table('blogs')->insert([
+                'uuid' => (string) \Illuminate\Support\Str::uuid(),
+                'ar_title' => $arTitle, 'en_title' => $enTitle, 'ar_desc' => $arDesc, 'en_desc' => $enDesc,
+                'image' => '', 'active' => 'yes', 'views' => 0,
+                'created_at' => now()->subDays(3 - $i), 'updated_at' => now(),
             ]);
         }
     }
