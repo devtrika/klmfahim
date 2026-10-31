@@ -9,6 +9,26 @@ class Site extends Model {
 
     protected $table = 'site';
 
+    /** Defaults used to create the settings row on a fresh database. */
+    public const DEFAULTS = [
+        'ar_title' => 'كلم فهيم', 'en_title' => 'Call Fahim',
+        'ar_slogan' => 'تأسيس الشركات وخدمات الأعمال', 'en_slogan' => 'Business Formation & Setup',
+        'ar_address' => 'دبي، الإمارات العربية المتحدة', 'en_address' => 'Dubai, United Arab Emirates',
+        'ar_footerword' => 'كلم فهيم شريكك في تأسيس شركتك في الإمارات من أول فكرة لحد الرخصة والإقامة والحساب البنكي، بخطوات واضحة وأسعار شفافة.',
+        'en_footerword' => 'Call Fahim is your partner for setting up a business in the UAE — from the first idea to the licence, residence visa and bank account, with clear steps and transparent pricing.',
+        'tags' => 'business setup, UAE, Dubai', 'email' => '', 'phone' => '', 'mobile' => '', 'fax' => '0',
+        'facebook' => '', 'twitter' => '', 'google' => '', 'youtube' => '', 'instagram' => '', 'whatsapp' => '',
+        'currency' => 'AED', 'vat_rate' => 5, 'base' => 0, 'branches' => 0, 'structure' => 0, 'mantis' => 0,
+    ];
+
+    /** The settings row, or unsaved defaults when the table is still empty. */
+    public static function current(): self
+    {
+        static $site;
+
+        return $site ??= static::query()->first() ?? (new static)->forceFill(static::DEFAULTS);
+    }
+
     //
     public function getData() {
         return $this->first();

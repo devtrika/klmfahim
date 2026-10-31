@@ -41,6 +41,15 @@ class BusinessSetupSeeder extends Seeder
 
     private function site(): void
     {
+        // Fresh database: create the settings row and the top admin group.
+        if (! Site::query()->exists()) {
+            DB::table('site')->insert(Site::DEFAULTS + ['id' => 1, 'created_at' => now(), 'updated_at' => now()]);
+        }
+        $superGroup = (int) config('permissions.super_group');
+        if (! DB::table('groups')->where('id', $superGroup)->exists()) {
+            DB::table('groups')->insert(['id' => $superGroup, 'ar_name' => 'الإدارة العليا', 'en_name' => 'Super Admin', 'created_at' => now(), 'updated_at' => now()]);
+        }
+
         // First run only: after that the site settings belong to the admin panel.
         if (Site::query()->whereKey(1)->whereNotNull('en_slogan')->exists()) {
             return;

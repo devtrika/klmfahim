@@ -27,7 +27,7 @@ class InvoiceController extends Controller
 
     public function create(Request $request)
     {
-        $site = Site::first();
+        $site = Site::current();
         $invoice = new Invoice([
             'number' => Invoice::nextNumber(),
             'status' => 'unpaid',
@@ -64,7 +64,7 @@ class InvoiceController extends Controller
 
     public function show(Invoice $invoice)
     {
-        return view('admin.invoices.show', ['invoice' => $invoice->load('items'), 'site' => Site::first()]);
+        return view('admin.invoices.show', ['invoice' => $invoice->load('items'), 'site' => Site::current()]);
     }
 
     public function edit(Invoice $invoice)

@@ -9,7 +9,7 @@ if ($lang == "ar") {
     $arrow = "left";
     $pull = "pull-right";
 }
-$site = App\Models\Site::first();
+$site = \App\Models\Site::current();
 ?>
 <html lang="{{$lang}}">
     <head>

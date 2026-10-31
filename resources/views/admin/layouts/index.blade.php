@@ -11,7 +11,7 @@ if ($lang == "ar") {
 }else{
     $lang ='en';
 }
-$site = App\Models\Site::first();
+$site = \App\Models\Site::current();
 ?>
 <html lang="{{$lang}}">
     <head>

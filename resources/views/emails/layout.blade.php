@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-$site = \App\Models\Site::first();
+$site = \App\Models\Site::current();
 $lang = LaravelLocalization::getCurrentLocale() ;
 if ($lang == "en") {
     $font = "Open Sans";

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('front.*', function ($view) {
             static $site;
-            $site ??= Site::query()->first();
+            $site ??= Site::current();
             $lang = LaravelLocalization::getCurrentLocale();
 
             $view->with([
