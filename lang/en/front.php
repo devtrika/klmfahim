@@ -142,4 +142,5 @@ return [
     'why4_title' => 'Every authority in one place',
     'why4_text' => 'Amer, Tasheel, Emirates ID, DET, health and RTA.',
     'all_gov_services' => 'All government services',
+    'bar_calculator' => 'Calculator',
 ];

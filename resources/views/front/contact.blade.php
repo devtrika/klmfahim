@@ -15,7 +15,7 @@
                     <i class="fa-brands fa-whatsapp"></i>
                     <span><small>{{ __('front.whatsapp') }}</small><b>{{ $phone }}</b></span>
                 </a>
-                <a class="contact-item" href="tel:{{ preg_replace('/\D+/', '', $phone) }}">
+                <a class="contact-item" href="tel:{{ preg_replace('/[^\d+]/', '', $phone) }}">
                     <i class="fa-solid fa-phone"></i>
                     <span><small>{{ __('front.call') }}</small><b>{{ $phone }}</b></span>
                 </a>

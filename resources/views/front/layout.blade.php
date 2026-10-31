@@ -134,7 +134,7 @@
                     <h4>{{ __('front.contact') }}</h4>
                     <ul>
                         <li><i class="fa-solid fa-location-dot"></i> {{ $site->{$lang.'_address'} }}</li>
-                        <li><a href="tel:{{ preg_replace('/\D+/', '', $phone) }}" class="ltr"><i class="fa-solid fa-phone"></i> {{ $phone }}</a></li>
+                        <li><a href="tel:{{ preg_replace('/[^\d+]/', '', $phone) }}" class="ltr"><i class="fa-solid fa-phone"></i> {{ $phone }}</a></li>
                         <li><a href="mailto:{{ $site->email }}"><i class="fa-solid fa-envelope"></i> {{ $site->email }}</a></li>
                         <li><a href="{{ $whatsapp }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> {{ __('front.whatsapp') }}</a></li>
                     </ul>
@@ -150,11 +150,11 @@
     <a class="wa-float" href="{{ $whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
     <nav class="mobile-bar" aria-label="mobile">
-        <a href="{{ url($lang) }}" @class(['is-active' => $active('')])><i class="fa-solid fa-house"></i>{{ __('front.home') }}</a>
-        <a href="{{ url($lang.'/services') }}" @class(['is-active' => $active('services')])><i class="fa-solid fa-briefcase"></i>{{ __('front.services') }}</a>
-        <a href="{{ $whatsapp }}" class="wa-center" target="_blank" rel="noopener"><span class="bubble"><i class="fa-brands fa-whatsapp"></i></span>{{ __('front.whatsapp') }}</a>
-        <a href="{{ url($lang.'/calculator') }}" @class(['is-active' => $active('calculator')])><i class="fa-solid fa-calculator"></i>{{ __('front.calculator') }}</a>
-        <a href="tel:{{ preg_replace('/\D+/', '', $phone) }}"><i class="fa-solid fa-phone"></i>{{ __('front.call') }}</a>
+        <a href="{{ url($lang) }}" @class(['is-active' => $active('')])><i class="fa-solid fa-house"></i><span class="label">{{ __('front.home') }}</span></a>
+        <a href="{{ url($lang.'/services') }}" @class(['is-active' => $active('services')])><i class="fa-solid fa-briefcase"></i><span class="label">{{ __('front.services') }}</span></a>
+        <a href="{{ $whatsapp }}" class="wa-center" target="_blank" rel="noopener"><span class="bubble"><i class="fa-brands fa-whatsapp"></i></span><span class="label">{{ __('front.whatsapp') }}</span></a>
+        <a href="{{ url($lang.'/calculator') }}" @class(['is-active' => $active('calculator')])><i class="fa-solid fa-calculator"></i><span class="label">{{ __('front.bar_calculator') }}</span></a>
+        <a href="tel:{{ preg_replace('/[^\d+]/', '', $phone) }}"><i class="fa-solid fa-phone"></i><span class="label">{{ __('front.call') }}</span></a>
     </nav>
 
     <script src="{{ asset('front/js/app.js') }}?v={{ filemtime(public_path('front/js/app.js')) }}" defer></script>
