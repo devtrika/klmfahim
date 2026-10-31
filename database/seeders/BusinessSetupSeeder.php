@@ -41,6 +41,11 @@ class BusinessSetupSeeder extends Seeder
 
     private function site(): void
     {
+        // First run only: after that the site settings belong to the admin panel.
+        if (Site::query()->whereKey(1)->whereNotNull('en_slogan')->exists()) {
+            return;
+        }
+
         Site::query()->whereKey(1)->update([
             'ar_title' => 'كلم فهيم',
             'en_title' => 'Call Fahim',
@@ -98,13 +103,14 @@ class BusinessSetupSeeder extends Seeder
 
     private function governmentServices(): void
     {
+        // First run only, so later category changes made in the admin stick.
+        if (Service::query()->where('en_title', 'Residency & Visas (Amer)')->exists()) {
+            return;
+        }
+
         // Licensing, residency and PRO work are government transactions.
         Service::query()->whereIn('en_title', ['Trade Licence Issuing & Renewal', 'PRO Services'])
             ->update(['category' => 'government']);
-
-        if (Service::query()->where('category', 'government')->count() > 3) {
-            return;
-        }
 
         $rows = [
             ['fa-solid fa-passport', 'الإقامات والتأشيرات (عامر)', 'Residency & Visas (Amer)', 'إصدار وتجديد وإلغاء الإقامات وتأشيرات الدخول في دبي وكل الإمارات.', 'Issue, renew and cancel residence and entry visas in Dubai and all emirates.'],
