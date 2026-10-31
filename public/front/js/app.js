@@ -60,6 +60,7 @@
         tabs.forEach(function (tab) {
             tab.addEventListener('click', function () {
                 tabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); t.setAttribute('aria-selected', t === tab); });
+                wrap.scrollTo({ left: tab.offsetLeft - (wrap.clientWidth - tab.offsetWidth) / 2, behavior: 'smooth' });
                 cards.forEach(function (c) { c.hidden = tab.dataset.filter !== 'all' && c.dataset.category !== tab.dataset.filter; });
             });
         });
