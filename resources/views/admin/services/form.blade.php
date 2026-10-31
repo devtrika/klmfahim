@@ -2,10 +2,10 @@
 
 @section('content')
 @php $editing = $service->exists; @endphp
-@include('admin.partials.page-head', ['title' => trans('layout.services'), 'parent' => ['admin/services', trans('layout.services')], 'current' => trans($editing ? 'layout.service_edit' : 'layout.service_add')])
+@include('admin.partials.page-head', ['title' => trans('layout.services'), 'parent' => ['trika/services', trans('layout.services')], 'current' => trans($editing ? 'layout.service_edit' : 'layout.service_add')])
 <section class="content">
     <div class="box box-default">
-        <form action="{{ URL::to('admin/services'.($editing ? '/'.$service->uuid : '')) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ URL::to('trika/services'.($editing ? '/'.$service->uuid : '')) }}" method="post" enctype="multipart/form-data">
             @csrf
             @if ($editing) @method('PUT') @endif
             <div class="box-body">
@@ -42,7 +42,7 @@
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg">{{ trans($editing ? 'layout.edit' : 'layout.add') }}</button>
-                <a href="{{ URL::to('admin/services') }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
+                <a href="{{ URL::to('trika/services') }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
             </div>
         </form>
     </div>

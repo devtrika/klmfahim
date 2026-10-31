@@ -16,8 +16,8 @@ if ($lang == "ar") {
         {{trans('layout.newsletter')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin/newsletter')}}"> {{trans('layout.newsletter')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika/newsletter')}}"> {{trans('layout.newsletter')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.newsletter_add')}}</li>
     </ol>
 </section>
@@ -34,7 +34,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/newsletter')}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('trika/newsletter')}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <div class="box-body">

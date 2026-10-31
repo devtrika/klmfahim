@@ -13,7 +13,7 @@ class AdminController extends Controller {
 
     public function getLogin() {
         if (Auth::Check()) {
-            return redirect('admin');
+            return redirect('trika');
         }
         return view('admin.home.login');
     }
@@ -30,7 +30,7 @@ class AdminController extends Controller {
             $type = Auth::user()->type;
 
             if ($active == 'yes' && $type == "admin") {
-                return redirect()->intended('admin');
+                return redirect()->intended('trika');
             } else {
                 Auth::logout();
                 return back()->withInput()->withError(trans('layout.not_allow'));
@@ -42,12 +42,12 @@ class AdminController extends Controller {
 
     public function logout() {
         Auth::logout();
-        return redirect('admin/login');
+        return redirect('trika/login');
     }
 
     public function index() {
         if (!Auth::Check()) {
-            return redirect('admin/login');
+            return redirect('trika/login');
         }
         return view('admin.home.index');
     }

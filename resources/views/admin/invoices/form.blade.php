@@ -6,9 +6,9 @@
     $rows = old('items', $items);
     $statuses = collect(\App\Models\Invoice::STATUSES)->mapWithKeys(fn ($s) => [$s => trans('layout.status_'.$s)])->all();
 @endphp
-@include('admin.partials.page-head', ['title' => trans('layout.invoices'), 'parent' => ['admin/invoices', trans('layout.invoices')], 'current' => $editing ? $invoice->number : trans('layout.invoice_add')])
+@include('admin.partials.page-head', ['title' => trans('layout.invoices'), 'parent' => ['trika/invoices', trans('layout.invoices')], 'current' => $editing ? $invoice->number : trans('layout.invoice_add')])
 <section class="content">
-    <form action="{{ URL::to('admin/invoices'.($editing ? '/'.$invoice->uuid : '')) }}" method="post" id="invoiceForm">
+    <form action="{{ URL::to('trika/invoices'.($editing ? '/'.$invoice->uuid : '')) }}" method="post" id="invoiceForm">
         @csrf
         @if ($editing) @method('PUT') @endif
         <input type="hidden" name="cost_request_id" value="{{ old('cost_request_id', $invoice->cost_request_id) }}">
@@ -78,7 +78,7 @@
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> {{ trans($editing ? 'layout.edit' : 'layout.add') }}</button>
-                <a href="{{ URL::to('admin/invoices'.($editing ? '/'.$invoice->uuid : '')) }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
+                <a href="{{ URL::to('trika/invoices'.($editing ? '/'.$invoice->uuid : '')) }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
             </div>
         </div>
     </form>

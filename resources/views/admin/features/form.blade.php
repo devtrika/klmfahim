@@ -2,10 +2,10 @@
 
 @section('content')
 @php $editing = $feature->exists; @endphp
-@include('admin.partials.page-head', ['title' => trans('layout.features'), 'parent' => ['admin/features', trans('layout.features')], 'current' => trans($editing ? 'layout.edit' : 'layout.add')])
+@include('admin.partials.page-head', ['title' => trans('layout.features'), 'parent' => ['trika/features', trans('layout.features')], 'current' => trans($editing ? 'layout.edit' : 'layout.add')])
 <section class="content">
     <div class="box box-default">
-        <form action="{{ URL::to('admin/features'.($editing ? '/'.$feature->uuid : '')) }}" method="post">
+        <form action="{{ URL::to('trika/features'.($editing ? '/'.$feature->uuid : '')) }}" method="post">
             @csrf
             @if ($editing) @method('PUT') @endif
             <div class="box-body">
@@ -15,7 +15,7 @@
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg">{{ trans($editing ? 'layout.edit' : 'layout.add') }}</button>
-                <a href="{{ URL::to('admin/features') }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
+                <a href="{{ URL::to('trika/features') }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
             </div>
         </form>
     </div>

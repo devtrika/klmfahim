@@ -16,8 +16,8 @@ if ($lang == "ar") {
         {{trans('layout.users')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin/users')}}"> {{trans('layout.users')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika/users')}}"> {{trans('layout.users')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.user_add')}}</li>
     </ol>
 </section>
@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form method="post" enctype="multipart/form-data" action="{{URL::to('admin/users')}}{{ isset($user) ? '/'.$user->uuid : '' }}" novalidate="novalidate">
+        <form method="post" enctype="multipart/form-data" action="{{URL::to('trika/users')}}{{ isset($user) ? '/'.$user->uuid : '' }}" novalidate="novalidate">
             {!! isset($user) ? '<input type="hidden" name="_method" value="PUT">' : '' !!}
             {{ csrf_field() }}
 
@@ -136,7 +136,7 @@ if ($lang == "ar") {
 
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg" style="font-size: 16px;">{{trans('layout.add')}}</button>
-                <a href="{{URL::to('admin/pages')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
+                <a href="{{URL::to('trika/pages')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
             </div>
 
         </form>

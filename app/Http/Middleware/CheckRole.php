@@ -24,7 +24,7 @@ class CheckRole
         $action = self::ACTIONS[$method] ?? null;
 
         if (! groupHasPermission($group, $role) || ($action && ! groupHasPermission($group, $role.'_'.$action))) {
-            return redirect('admin/not_allow');
+            return redirect('trika/not_allow');
         }
 
         return $next($request);

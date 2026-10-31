@@ -57,7 +57,7 @@ class BookingController extends Controller {
             });
         }
         $message = trans('layout.send_suc');
-        return redirect('admin/booking')->with(['message' => $message]);
+        return redirect('trika/booking')->with(['message' => $message]);
     }
 
     /**

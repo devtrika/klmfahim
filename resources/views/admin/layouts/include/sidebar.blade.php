@@ -19,8 +19,8 @@
         </div>
 
         <ul class="sidebar-menu" data-widget="tree" style="padding-bottom:50px">
-            <li @class(['active' => $path === 'admin'])>
-                <a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('layout.admin') }}</span></a>
+            <li @class(['active' => $path === 'trika'])>
+                <a href="{{ URL::to('trika') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('layout.admin') }}</span></a>
             </li>
             <li>
                 <a href="{{ URL::to($lang) }}" target="_blank"><i class="fa fa-external-link"></i> <span>{{ trans('layout.website') }}</span></a>
@@ -55,7 +55,7 @@
                 <a href="{{ LaravelLocalization::getLocalizedURL($lang === 'ar' ? 'en' : 'ar') }}"><i class="fa fa-globe"></i> <span>{{ $lang === 'ar' ? 'English' : 'العربية' }}</span></a>
             </li>
             <li>
-                <a href="{{ URL::to('admin/logout') }}"><i class="fa fa-sign-out"></i> <span>{{ trans('layout.logout') }}</span></a>
+                <a href="{{ URL::to('trika/logout') }}"><i class="fa fa-sign-out"></i> <span>{{ trans('layout.logout') }}</span></a>
             </li>
         </ul>
     </section>

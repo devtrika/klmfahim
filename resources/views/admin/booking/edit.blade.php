@@ -16,8 +16,8 @@ if ($lang == "ar") {
         {{trans('layout.booking')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin/booking')}}"> {{trans('layout.booking')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika/booking')}}"> {{trans('layout.booking')}}</a></li>
     </ol>
 </section>
 
@@ -69,7 +69,7 @@ if ($lang == "ar") {
             </div>
 
             <div class="box-footer">
-                <a href="{{URL::to('admin/booking')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
+                <a href="{{URL::to('trika/booking')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
             </div>
 
 

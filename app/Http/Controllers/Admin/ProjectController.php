@@ -95,7 +95,7 @@ class ProjectController extends Controller {
 
         $this->project->edit($id, $request, $filename);
         $message = trans('layout.edit_suc');
-        return redirect('admin/projects')->with(['message' => $message]);
+        return redirect('trika/projects')->with(['message' => $message]);
     }
 
     /**

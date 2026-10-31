@@ -57,7 +57,7 @@ class ContactController extends Controller {
             });
         }
         $message = trans('layout.send_suc');
-        return redirect('admin/contact')->with(['message' => $message]);
+        return redirect('trika/contact')->with(['message' => $message]);
     }
 
     /**

@@ -107,7 +107,7 @@ class ClientController extends Controller {
 
         $this->client->edit($id, $request, $filename);
         $message = trans('layout.edit_suc');
-        return redirect('admin/clients')->with(['message' => $message]);
+        return redirect('trika/clients')->with(['message' => $message]);
     }
 
     /**

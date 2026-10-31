@@ -23,6 +23,6 @@ class CostRequestController extends Controller
     {
         $request->delete();
 
-        return redirect('admin/requests')->with('message', trans('layout.delete_suc'));
+        return redirect('trika/requests')->with('message', trans('layout.delete_suc'));
     }
 }

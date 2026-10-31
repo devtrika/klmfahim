@@ -35,7 +35,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         ], function () {
             Auth::routes(['register' => false]);
 
-            Route::group(array('prefix' => 'admin', 'middleware' => 'admin'), function () {
+            Route::group(array('prefix' => 'trika', 'middleware' => 'admin'), function () {
                 Route::resource('patient', PatientController::class)->except('show')->middleware('role:patient');
                 Route::resource('booking', BookingController::class)->only('index', 'edit', 'update', 'destroy')->middleware('role:booking');
                 Route::resource('daily', DailyController::class)->except('show')->middleware('role:daily');
@@ -63,7 +63,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('/', [AdminController::class, 'index']);
             });
 
-            Route::group(array('prefix' => 'admin'), function () {
+            Route::group(array('prefix' => 'trika'), function () {
                 Route::get('login', [AdminController::class, 'getLogin']);
                 Route::post('login', [AdminController::class, 'postLogin']);
                 Route::get('not_allow', [AdminController::class, 'not_allow']);

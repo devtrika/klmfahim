@@ -59,7 +59,7 @@ class InvoiceController extends Controller
         $invoice = new Invoice(['created_by' => Auth::id()]);
         $this->save($invoice, $request);
 
-        return redirect('admin/invoices/'.$invoice->id)->with('message', trans('layout.add_suc'));
+        return redirect('trika/invoices/'.$invoice->id)->with('message', trans('layout.add_suc'));
     }
 
     public function show(Invoice $invoice)
@@ -79,14 +79,14 @@ class InvoiceController extends Controller
     {
         $this->save($invoice, $request);
 
-        return redirect('admin/invoices/'.$invoice->id)->with('message', trans('layout.edit_suc'));
+        return redirect('trika/invoices/'.$invoice->id)->with('message', trans('layout.edit_suc'));
     }
 
     public function destroy(Invoice $invoice)
     {
         $invoice->delete();
 
-        return redirect('admin/invoices')->with('message', trans('layout.delete_suc'));
+        return redirect('trika/invoices')->with('message', trans('layout.delete_suc'));
     }
 
     private function save(Invoice $invoice, Request $request): void

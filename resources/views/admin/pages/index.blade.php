@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.pages')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.pages')}}</li>
     </ol>
 </section>
@@ -38,7 +38,7 @@ if ($lang == "ar") {
 
             <div class="box">
                 <div class="box-header">
-                    <a href="{{URL::to('admin/pages/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.page_add')}}</a>
+                    <a href="{{URL::to('trika/pages/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.page_add')}}</a>
                 </div>
                 <div class="box-body">
                     <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive">
@@ -57,14 +57,14 @@ if ($lang == "ar") {
                                 <td>{{$i}}</td>
                                 <td>{{$page['ar_title']}}</td>    <td>{{$page['en_title']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/pages/'.$page->uuid.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'trika/pages/'.$page->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 
                                 <td>
                                     @if($page->id >3)
-                                    {{ Form::open(array('url' =>'admin/pages/'.$page->uuid, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'trika/pages/'.$page->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                     @endif

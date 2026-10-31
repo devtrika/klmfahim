@@ -16,8 +16,8 @@ if ($lang == "ar") {
          {{trans('layout.videos')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin/videos')}}"> {{trans('layout.videos')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika/videos')}}"> {{trans('layout.videos')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.video_add')}}</li>
     </ol>
 </section>
@@ -39,7 +39,7 @@ if ($lang == "ar") {
 
             <div class="box">
                 <div class="box-header">
-                    <a href="{{URL::to('admin/videos/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.video_add')}}</a>
+                    <a href="{{URL::to('trika/videos/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.video_add')}}</a>
                 </div>
                 <div class="box-body">
                     <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive">
@@ -57,12 +57,12 @@ if ($lang == "ar") {
                                 <td>https://www.youtube.com/embed/{{$slider['link']}}</td>
                                 <td> <iframe src="https://www.youtube.com/embed/{{$slider['link']}}"></iframe></td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/videos/'.$slider->uuid.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'trika/videos/'.$slider->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm bg-purple"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/videos/'.$slider->uuid, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'trika/videos/'.$slider->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm bg-red"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

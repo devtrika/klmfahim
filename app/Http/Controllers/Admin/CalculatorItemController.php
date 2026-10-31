@@ -25,7 +25,7 @@ class CalculatorItemController extends Controller
     {
         CalculatorItem::create($this->validated($request));
 
-        return redirect('admin/calculator')->with('message', trans('layout.add_suc'));
+        return redirect('trika/calculator')->with('message', trans('layout.add_suc'));
     }
 
     public function edit(CalculatorItem $calculator)
@@ -37,7 +37,7 @@ class CalculatorItemController extends Controller
     {
         $calculator->update($this->validated($request));
 
-        return redirect('admin/calculator')->with('message', trans('layout.edit_suc'));
+        return redirect('trika/calculator')->with('message', trans('layout.edit_suc'));
     }
 
     public function destroy(CalculatorItem $calculator)

@@ -6,7 +6,7 @@
 <div class="login-box-body">
     <p class="login-box-msg">{{trans('layout.sign_in')}}</p>
 
-    <form action="{{URL::to('admin/login')}}" method="post" >
+    <form action="{{URL::to('trika/login')}}" method="post" >
         {{ csrf_field() }}
 
 

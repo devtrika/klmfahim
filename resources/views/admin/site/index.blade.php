@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.site')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.site_edit')}}</li>
     </ol>
 </section>
@@ -32,7 +32,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/site/1')}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('trika/site/1')}}" method="post" enctype="multipart/form-data">
             {{ Form::hidden('_method','PATCH') }}
             {{ csrf_field() }}
 
@@ -365,7 +365,7 @@ if ($lang == "ar") {
 
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg" style="font-size: 16px;">{{trans('layout.save')}}</button>
-                <a href="{{URL::to('admin')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
+                <a href="{{URL::to('trika')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
             </div>
 
         </form>

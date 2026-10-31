@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.admins')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.admins')}}</li>
     </ol>
 </section>
@@ -38,7 +38,7 @@ if ($lang == "ar") {
 
             <div class="box">
                 <div class="box-header">
-                    <a href="{{URL::to('admin/admins/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.admin_add')}}</a>
+                    <a href="{{URL::to('trika/admins/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.admin_add')}}</a>
                 </div>
                 <div class="box-body">
                     <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive">
@@ -68,7 +68,7 @@ if ($lang == "ar") {
                                 </td>
                               
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/admins/'.$user->uuid.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'trika/admins/'.$user->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-success"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>

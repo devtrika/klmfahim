@@ -16,8 +16,8 @@ if ($lang == "ar") {
          {{trans('layout.videos')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin/videos')}}"> {{trans('layout.videos')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika/videos')}}"> {{trans('layout.videos')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.video_add')}}</li>
     </ol>
 </section>
@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/videos')}}" method="post" >
+        <form action="{{URL::to('trika/videos')}}" method="post" >
             {{ csrf_field() }}
 
             <div class="box-body">
@@ -113,7 +113,7 @@ if ($lang == "ar") {
 
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg" style="font-size: 16px;">{{trans('layout.add')}}</button>
-                <a href="{{URL::to('admin/videos')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
+                <a href="{{URL::to('trika/videos')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
             </div>
 
         </form>

@@ -30,5 +30,5 @@ Artisan::command('admin:create', function () {
         'seen' => 'no',
     ])->save();
 
-    $this->info("Admin created. Log in at ".url('admin/login')." with username {$phone}.");
+    $this->info("Admin created. Log in at ".url('trika/login')." with username {$phone}.");
 })->purpose('Create an admin user in the top admin group');

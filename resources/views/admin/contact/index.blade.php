@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.contact')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.contact')}}</li>
     </ol>
 </section>
@@ -68,12 +68,12 @@ if ($lang == "ar") {
                                     @endif
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'trika/contact/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.reply')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'trika/contact/'.$contact->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

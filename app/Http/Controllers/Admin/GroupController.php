@@ -30,7 +30,7 @@ class GroupController extends Controller
         $group = new Group;
         $this->save($group, $request);
 
-        return redirect('admin/groups')->with('message', trans('layout.add_suc'));
+        return redirect('trika/groups')->with('message', trans('layout.add_suc'));
     }
 
     public function edit(Group $group)
@@ -45,7 +45,7 @@ class GroupController extends Controller
     {
         $this->save($group, $request);
 
-        return redirect('admin/groups')->with('message', trans('layout.edit_suc'));
+        return redirect('trika/groups')->with('message', trans('layout.edit_suc'));
     }
 
     public function destroy(Group $group)

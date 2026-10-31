@@ -25,7 +25,7 @@ class ServiceController extends Controller
         $service = new Service;
         $this->fill($service, $request);
 
-        return redirect('admin/services')->with('message', trans('layout.add_suc'));
+        return redirect('trika/services')->with('message', trans('layout.add_suc'));
     }
 
     public function edit(Service $service)
@@ -37,7 +37,7 @@ class ServiceController extends Controller
     {
         $this->fill($service, $request);
 
-        return redirect('admin/services')->with('message', trans('layout.edit_suc'));
+        return redirect('trika/services')->with('message', trans('layout.edit_suc'));
     }
 
     public function destroy(Service $service)

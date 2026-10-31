@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.booking')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.booking')}}</li>
     </ol>
 </section>
@@ -56,12 +56,12 @@ if ($lang == "ar") {
                                 <td>{{$contact['name']}}</td>
                                 <td>{{$contact['phone']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/booking/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'trika/booking/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.show')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/booking/'.$contact->uuid, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'trika/booking/'.$contact->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

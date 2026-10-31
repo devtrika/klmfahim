@@ -15,7 +15,7 @@
                             <td dir="ltr">{{ $r->phone }}</td>
                             <td><b>{{ number_format($r->estimate) }}</b> AED</td>
                             <td>@if ($r->seen)<span class="label-copper">{{ trans('layout.seen') }}</span>@else<span class="label-ink">{{ trans('layout.unseen') }}</span>@endif</td>
-                            <td class="text-nowrap"><a href="{{ URL::to('admin/requests/'.$r->uuid) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> {{ trans('layout.view') }}</a></td>
+                            <td class="text-nowrap"><a href="{{ URL::to('trika/requests/'.$r->uuid) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> {{ trans('layout.view') }}</a></td>
                         </tr>
                     @endforeach
                 </tbody>

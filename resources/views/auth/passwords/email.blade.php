@@ -25,7 +25,7 @@
             @if(Request::get('from') == "web")
             <div class="col-6">
                 <div class="fog-pwd">
-                    <a href="{{URL::to('admin/login')}}"><i class="fa fa-user"></i> {{trans('layout.login')}}</a><br>
+                    <a href="{{URL::to('trika/login')}}"><i class="fa fa-user"></i> {{trans('layout.login')}}</a><br>
                 </div>
             </div>
             @endif

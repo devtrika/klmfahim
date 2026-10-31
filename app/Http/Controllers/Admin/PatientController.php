@@ -75,7 +75,7 @@ class PatientController extends Controller {
             $pp->save();
         }
         $message = trans('layout.send_suc');
-        return redirect('admin/patient')->with(['message' => $message]);
+        return redirect('trika/patient')->with(['message' => $message]);
     }
 
     public function removethis($id) {

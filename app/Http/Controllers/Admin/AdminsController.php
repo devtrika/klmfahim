@@ -109,7 +109,7 @@ class AdminsController extends Controller {
             }
         }
         $message = trans('layout.edit_suc');
-        return redirect('admin/admins')->with(['message' => $message]);
+        return redirect('trika/admins')->with(['message' => $message]);
     }
 
 }

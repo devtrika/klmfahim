@@ -87,7 +87,7 @@ class DepartmentController extends Controller {
         ]);
         $this->page->edit($id, $request);
         $message = trans('layout.edit_suc');
-        return redirect('admin/depts')->with(['message' => $message]);
+        return redirect('trika/depts')->with(['message' => $message]);
     }
 
     /**

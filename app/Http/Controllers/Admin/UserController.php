@@ -53,6 +53,6 @@ class UserController  extends Controller {
         $this->validate($request,$arr);
         $this->user->edit($id, $request);
         $message = trans('layout.edit_suc');
-        return redirect('admin/users')->with(['message' => $message]);
+        return redirect('trika/users')->with(['message' => $message]);
     }
 }

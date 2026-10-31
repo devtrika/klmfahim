@@ -113,7 +113,7 @@ class PagesController extends Controller {
         }
         $this->page->edit($id, $request, $filename);
         $message = trans('layout.edit_suc');
-        return redirect('admin/pages')->with(['message' => $message]);
+        return redirect('trika/pages')->with(['message' => $message]);
     }
 
     /**

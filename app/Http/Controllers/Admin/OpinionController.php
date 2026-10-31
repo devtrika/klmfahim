@@ -111,7 +111,7 @@ $this->validate($request, [
 
         $this->client->edit($id, $request, $filename);
         $message = trans('layout.edit_suc');
-        return redirect('admin/opinions')->with(['message' => $message]);
+        return redirect('trika/opinions')->with(['message' => $message]);
     }
 
     /**

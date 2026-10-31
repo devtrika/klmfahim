@@ -92,7 +92,7 @@ class BlogController extends Controller {
         }
         $this->blog->edit($id, $request, $filename);
         $message = trans('layout.edit_suc');
-        return redirect('admin/news')->with(['message' => $message]);
+        return redirect('trika/news')->with(['message' => $message]);
     }
 
     /**

@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.admin')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{URL::to('admin')}}"><i class="fa fa-home"></i> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{URL::to('trika')}}"><i class="fa fa-home"></i> {{trans('layout.home')}}</a></li>
     </ol>
 </section>
 

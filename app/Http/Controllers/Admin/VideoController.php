@@ -80,7 +80,7 @@ class VideoController extends Controller {
 
         $this->slider->edit($id, $request);
         $message = trans('layout.edit_suc');
-        return redirect('admin/videos')->with(['message' => $message]);
+        return redirect('trika/videos')->with(['message' => $message]);
     }
 
     /**

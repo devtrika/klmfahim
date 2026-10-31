@@ -22,7 +22,7 @@ class FeatureController extends Controller
     {
         Feature::create($this->validated($request));
 
-        return redirect('admin/features')->with('message', trans('layout.add_suc'));
+        return redirect('trika/features')->with('message', trans('layout.add_suc'));
     }
 
     public function edit(Feature $feature)
@@ -34,7 +34,7 @@ class FeatureController extends Controller
     {
         $feature->update($this->validated($request));
 
-        return redirect('admin/features')->with('message', trans('layout.edit_suc'));
+        return redirect('trika/features')->with('message', trans('layout.edit_suc'));
     }
 
     public function destroy(Feature $feature)

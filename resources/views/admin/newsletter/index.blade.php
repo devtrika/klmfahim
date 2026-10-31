@@ -16,7 +16,7 @@ if ($lang == "ar") {
         {{trans('layout.newsletter')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.newsletter')}}</li>
     </ol>
 </section>
@@ -38,7 +38,7 @@ if ($lang == "ar") {
 
             <div class="box">
                 <div class="box-header">
-                    <a href="{{URL::to('admin/newsletter/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.newsletter_add')}}</a>
+                    <a href="{{URL::to('trika/newsletter/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.newsletter_add')}}</a>
                 </div>
                 <div class="box-body">
                     <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive">
@@ -56,7 +56,7 @@ if ($lang == "ar") {
                                 <td>{{$i}}</td>
                                 <td>{{$email['email']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/newsletter/'.$email->uuid, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'trika/newsletter/'.$email->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

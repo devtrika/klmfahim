@@ -95,7 +95,7 @@ class SliderController extends Controller {
 
         $this->slider->edit($id, $request, $filename);
         $message = trans('layout.edit_suc');
-        return redirect('admin/slider')->with(['message' => $message]);
+        return redirect('trika/slider')->with(['message' => $message]);
     }
 
     /**

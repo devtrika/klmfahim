@@ -59,7 +59,7 @@ class DailyController  extends Controller {
         ]);
         $this->contact->edit($id, $request);
         $message = trans('layout.send_suc');
-        return redirect('admin/daily')->with(['message' => $message]);
+        return redirect('trika/daily')->with(['message' => $message]);
     }
 
     /**

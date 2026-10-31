@@ -16,8 +16,8 @@ if ($lang == "ar") {
         {{trans('layout.blog')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin')}}"> {{trans('layout.home')}}</a></li>
-        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('admin/news')}}"> {{trans('layout.blog')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika')}}"> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item {{$pull}}"><a href="{{URL::to('trika/news')}}"> {{trans('layout.blog')}}</a></li>
         <li class="breadcrumb-item active {{$pull}}">{{trans('layout.blog_add')}}</li>
     </ol>
 </section>
@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/news')}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('trika/news')}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <div class="box-body">
@@ -105,7 +105,7 @@ if ($lang == "ar") {
 
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg" style="font-size: 16px;">{{trans('layout.add')}}</button>
-                <a href="{{URL::to('admin/news')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
+                <a href="{{URL::to('trika/news')}}" class="btn btn-default btn-lg" style="font-size: 16px;">{{trans('layout.back')}}</a>
             </div>
 
         </form>

@@ -76,13 +76,13 @@
 </head>
 <body>
     <div class="toolbar">
-        <a href="{{ URL::to('admin/invoices') }}"><i class="fa-solid fa-arrow-{{ $lang === 'ar' ? 'right' : 'left' }}"></i> {{ trans('layout.invoices') }}</a>
+        <a href="{{ URL::to('trika/invoices') }}"><i class="fa-solid fa-arrow-{{ $lang === 'ar' ? 'right' : 'left' }}"></i> {{ trans('layout.invoices') }}</a>
         <span class="spacer"></span>
         @if ($invoice->client_phone)
             <a class="wa" target="_blank" rel="noopener" href="https://wa.me/{{ preg_replace('/\D+/', '', $invoice->client_phone) }}?text={{ rawurlencode(trans('layout.invoice').' '.$invoice->number.' — '.$money($invoice->total).' AED') }}"><i class="fa-brands fa-whatsapp"></i> {{ trans('layout.whatsapp') }}</a>
         @endif
         @perm('invoices_edit')
-            <a href="{{ URL::to('admin/invoices/'.$invoice->uuid.'/edit') }}"><i class="fa-solid fa-pen"></i> {{ trans('layout.edit') }}</a>
+            <a href="{{ URL::to('trika/invoices/'.$invoice->uuid.'/edit') }}"><i class="fa-solid fa-pen"></i> {{ trans('layout.edit') }}</a>
         @endperm
         <button class="primary" onclick="window.print()"><i class="fa-solid fa-print"></i> {{ trans('layout.print') }}</button>
     </div>

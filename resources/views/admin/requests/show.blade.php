@@ -1,7 +1,7 @@
 @extends('admin.layouts.table')
 
 @section('content')
-@include('admin.partials.page-head', ['title' => trans('layout.requests'), 'parent' => ['admin/requests', trans('layout.requests')], 'current' => $item->name])
+@include('admin.partials.page-head', ['title' => trans('layout.requests'), 'parent' => ['trika/requests', trans('layout.requests')], 'current' => $item->name])
 @php
     $digits = preg_replace('/\D+/', '', $item->phone);
     $lang = LaravelLocalization::getCurrentLocale();
@@ -18,10 +18,10 @@
                     <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/{{ $digits }}"><i class="fa fa-whatsapp"></i> {{ trans('layout.reply_whatsapp') }}</a>
                     <a class="btn btn-default btn-block" href="tel:{{ $digits }}"><i class="fa fa-phone"></i> {{ $item->phone }}</a>
                     @perm('invoices_add')
-                        <a class="btn btn-info btn-block" href="{{ URL::to('admin/invoices/create?request='.$item->uuid) }}"><i class="fa fa-file-text"></i> {{ trans('layout.create_invoice') }}</a>
+                        <a class="btn btn-info btn-block" href="{{ URL::to('trika/invoices/create?request='.$item->uuid) }}"><i class="fa fa-file-text"></i> {{ trans('layout.create_invoice') }}</a>
                     @endperm
                     @perm('requests_delete')
-                    <form action="{{ URL::to('admin/requests/'.$item->uuid) }}" method="post" onsubmit="return confirm('?')" style="margin-top:10px">
+                    <form action="{{ URL::to('trika/requests/'.$item->uuid) }}" method="post" onsubmit="return confirm('?')" style="margin-top:10px">
                         @csrf @method('DELETE')
                         <button class="btn btn-danger btn-block"><i class="fa fa-trash-o"></i> {{ trans('layout.delete') }}</button>
                     </form>

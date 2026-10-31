@@ -7,9 +7,9 @@
     $actions = ['view', 'add', 'edit', 'delete'];
     $granted = old('permissions', $granted);
 @endphp
-@include('admin.partials.page-head', ['title' => trans('layout.groups'), 'parent' => ['admin/groups', trans('layout.groups')], 'current' => trans($editing ? 'layout.edit' : 'layout.add')])
+@include('admin.partials.page-head', ['title' => trans('layout.groups'), 'parent' => ['trika/groups', trans('layout.groups')], 'current' => trans($editing ? 'layout.edit' : 'layout.add')])
 <section class="content">
-    <form action="{{ URL::to('admin/groups'.($editing ? '/'.$group->uuid : '')) }}" method="post">
+    <form action="{{ URL::to('trika/groups'.($editing ? '/'.$group->uuid : '')) }}" method="post">
         @csrf
         @if ($editing) @method('PUT') @endif
         <div class="box box-default">
@@ -66,7 +66,7 @@
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-lg">{{ trans($editing ? 'layout.edit' : 'layout.add') }}</button>
-                <a href="{{ URL::to('admin/groups') }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
+                <a href="{{ URL::to('trika/groups') }}" class="btn btn-default btn-lg">{{ trans('layout.back') }}</a>
             </div>
         </div>
     </form>

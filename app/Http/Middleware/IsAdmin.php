@@ -20,7 +20,7 @@ class IsAdmin {
                 Auth::logout();
             }
             
-            return redirect('admin/login');
+            return redirect('trika/login');
         }
         return $next($request);
     }

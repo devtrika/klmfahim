@@ -16,26 +16,26 @@ if ($lang == "ar") {
         {{trans('layout.admin')}}
     </h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{URL::to('admin')}}"><i class="fa fa-home"></i> {{trans('layout.home')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{URL::to('trika')}}"><i class="fa fa-home"></i> {{trans('layout.home')}}</a></li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
     <div class="cf-tiles">
-        <a class="cf-tile" href="{{ URL::to('admin/requests') }}">
+        <a class="cf-tile" href="{{ URL::to('trika/requests') }}">
             <i class="fa fa-calculator"></i>
             <span><b>{{ \App\Models\CostRequest::where('seen', false)->count() }}</b><small>{{ trans('layout.requests_new') }}</small></span>
         </a>
-        <a class="cf-tile" href="{{ URL::to('admin/contact') }}">
+        <a class="cf-tile" href="{{ URL::to('trika/contact') }}">
             <i class="fa fa-envelope"></i>
             <span><b>{{ \App\Models\Contact::where('seen', 'no')->count() }}</b><small>{{ trans('layout.contact') }}</small></span>
         </a>
-        <a class="cf-tile" href="{{ URL::to('admin/services') }}">
+        <a class="cf-tile" href="{{ URL::to('trika/services') }}">
             <i class="fa fa-briefcase"></i>
             <span><b>{{ \App\Models\Service::count() }}</b><small>{{ trans('layout.services') }}</small></span>
         </a>
-        <a class="cf-tile" href="{{ URL::to('admin/clients') }}">
+        <a class="cf-tile" href="{{ URL::to('trika/clients') }}">
             <i class="fa fa-handshake-o"></i>
             <span><b>{{ \App\Models\Client::count() }}</b><small>{{ trans('layout.clients') }}</small></span>
         </a>
@@ -83,12 +83,12 @@ if ($lang == "ar") {
                                     @endif
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'trika/contact/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.reply')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'trika/contact/'.$contact->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>
@@ -109,7 +109,7 @@ if ($lang == "ar") {
 
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/site/')}}">
+                        <a href="{{URL::to('trika/site/')}}">
                             <span class="info-box-icon bg-yellow"><i class="fa fa-th"></i></span>
 
                             <div class="info-box-content">
@@ -123,7 +123,7 @@ if ($lang == "ar") {
                 <!--                <?php $groups = \App\Models\Group::count(); ?>
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="info-box">
-                                        <a href="{{URL::to('admin/groups/')}}">
+                                        <a href="{{URL::to('trika/groups/')}}">
                                             <span class="info-box-icon bg-black"><i class="fa fa-android"></i></span>
                 
                                             <div class="info-box-content">
@@ -137,7 +137,7 @@ if ($lang == "ar") {
                 <?php $admins = \App\Models\User::where('type', 'admin')->count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/admins/')}}">
+                        <a href="{{URL::to('trika/admins/')}}">
                             <span class="info-box-icon bg-fuchsia"><i class="fa fa-user-secret"></i></span>
 
                             <div class="info-box-content">
@@ -153,7 +153,7 @@ if ($lang == "ar") {
                 <?php $clients = \App\Models\Client::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/clients')}}">
+                        <a href="{{URL::to('trika/clients')}}">
                             <span class="info-box-icon bg-light-blue"><i class="fa fa-user-circle-o"></i></span>
 
                             <div class="info-box-content">
@@ -167,7 +167,7 @@ if ($lang == "ar") {
                 <?php $projects = \App\Models\Project::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/projects')}}">
+                        <a href="{{URL::to('trika/projects')}}">
                             <span class="info-box-icon bg-yellow-active"><i class="fa fa-product-hunt"></i></span>
 
                             <div class="info-box-content">
@@ -181,7 +181,7 @@ if ($lang == "ar") {
                 <?php $services = \App\Models\Service::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/services')}}">
+                        <a href="{{URL::to('trika/services')}}">
                             <span class="info-box-icon bg-blue-gradient"><i class="fa fa-share"></i></span>
 
                             <div class="info-box-content">
@@ -195,7 +195,7 @@ if ($lang == "ar") {
                 <?php $services = \App\Models\Blog::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/news')}}">
+                        <a href="{{URL::to('trika/news')}}">
                             <span class="info-box-icon bg-fuchsia-active"><i class="fa fa-pencil-square"></i></span>
 
                             <div class="info-box-content">
@@ -208,7 +208,7 @@ if ($lang == "ar") {
                 <?php $services = \App\Models\Opinon::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/opinions')}}">
+                        <a href="{{URL::to('trika/opinions')}}">
                             <span class="info-box-icon bg-lime-active"><i class="fa fa-user-o"></i></span>
 
                             <div class="info-box-content">
@@ -222,7 +222,7 @@ if ($lang == "ar") {
                 <?php $services = \App\Models\Page::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/pages')}}">
+                        <a href="{{URL::to('trika/pages')}}">
                             <span class="info-box-icon bg-light-blue"><i class="fa fa-book"></i></span>
 
                             <div class="info-box-content">
@@ -236,7 +236,7 @@ if ($lang == "ar") {
                 <?php $slider = \App\Models\Slider::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/slider/')}}">
+                        <a href="{{URL::to('trika/slider/')}}">
                             <span class="info-box-icon bg-lime"><i class="fa fa-photo"></i></span>
 
                             <div class="info-box-content">
@@ -254,7 +254,7 @@ if ($lang == "ar") {
                 <?php $contact = \App\Models\Contact::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/contact/')}}">
+                        <a href="{{URL::to('trika/contact/')}}">
                             <span class="info-box-icon bg-purple"><i class="fa fa-phone-square"></i></span>
 
                             <div class="info-box-content">
@@ -267,7 +267,7 @@ if ($lang == "ar") {
 
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
-                        <a href="{{URL::to('admin/logout/')}}">
+                        <a href="{{URL::to('trika/logout/')}}">
                             <span class="info-box-icon bg-red"><i class="fa fa-sign-out"></i></span>
 
                             <div class="info-box-content">

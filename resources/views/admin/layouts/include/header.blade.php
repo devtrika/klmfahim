@@ -12,7 +12,7 @@ if ($lang == "ar") {
 ?>
 <header class="main-header" dir="{{$dir}}">
     <!-- Logo -->
-    <a href="{{URL::to('admin')}}" class="logo">
+    <a href="{{URL::to('trika')}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><img src="{{ asset('brand/mark.png') }}" alt="" style="width:34px;height:34px"></span>
         <!-- logo for regular state and mobile devices -->
@@ -48,7 +48,7 @@ if ($lang == "ar") {
                                 <a href="{{URL::to('/')}}" class="btn btn-block btn-primary">{{trans('layout.website')}}</a>
                             </div>
                             <div class="pull-left">
-                                <a href="{{URL::to('admin/logout')}}" class="btn btn-block btn-danger">{{trans('layout.logout')}}</a>
+                                <a href="{{URL::to('trika/logout')}}" class="btn btn-block btn-danger">{{trans('layout.logout')}}</a>
                             </div>
                         </li>
                     </ul>
@@ -70,7 +70,7 @@ if ($lang == "ar") {
                             <ul class="menu inner-content-div">
                                 @foreach($users as $user)
                                 <li><!-- start message -->
-                                    <a href="{{URL::to('admin/users/'.$user->uuid.'/edit')}}">
+                                    <a href="{{URL::to('trika/users/'.$user->uuid.'/edit')}}">
                                         <div class="{{$pull}}">
                                             <img src="{{URL::to('admin_panel')}}/images/user2-160x160.jpg" class="rounded-circle" alt="{{$user['name']}}">
                                         </div>
@@ -86,7 +86,7 @@ if ($lang == "ar") {
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="footer"><a href="{{URL::to('admin/users')}}">{{trans('layout.show_all')}}</a></li>
+                        <li class="footer"><a href="{{URL::to('trika/users')}}">{{trans('layout.show_all')}}</a></li>
                     </ul>
                 </li>
                 @else
@@ -102,7 +102,7 @@ if ($lang == "ar") {
                             <ul class="menu inner-content-div">
                                 @foreach($users as $user)
                                 <li><!-- start message -->
-                                    <a href="{{URL::to('admin/users/'.$user->uuid.'/edit')}}">
+                                    <a href="{{URL::to('trika/users/'.$user->uuid.'/edit')}}">
                                         <div class="{{$pull}}">
                                             <img src="{{URL::to('admin_panel')}}/images/user2-160x160.jpg" class="rounded-circle" alt="{{$user['name']}}">
                                         </div>
@@ -118,7 +118,7 @@ if ($lang == "ar") {
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="footer"><a href="{{URL::to('admin/users')}}">{{trans('layout.show_all')}}</a></li>
+                        <li class="footer"><a href="{{URL::to('trika/users')}}">{{trans('layout.show_all')}}</a></li>
                     </ul>
                 </li>
 
@@ -139,7 +139,7 @@ if ($lang == "ar") {
                             <ul class="menu inner-content-div">
                                 @foreach($contacts as $contact)
                                 <li><!-- start message -->
-                                    <a href="{{URL::to('admin/contact/'.$contact->uuid.'/edit')}}">
+                                    <a href="{{URL::to('trika/contact/'.$contact->uuid.'/edit')}}">
                                         <div class="{{$pull}}">
                                             <img src="{{URL::to('admin_panel')}}/images/user2-160x160.jpg" class="rounded-circle" alt="{{$contact['name']}}">
                                         </div>
@@ -155,7 +155,7 @@ if ($lang == "ar") {
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="footer"><a href="{{URL::to('admin/contact')}}">{{trans('layout.show_all')}}</a></li>
+                        <li class="footer"><a href="{{URL::to('trika/contact')}}">{{trans('layout.show_all')}}</a></li>
                     </ul>
                 </li>
                 @endif
