@@ -56,7 +56,7 @@ if ($lang == "ar") {
                                 <td>{{$i}}</td>
                                 <td>{{$email['email']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/newsletter/'.$email->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/newsletter/'.$email->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

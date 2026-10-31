@@ -57,12 +57,12 @@ if ($lang == "ar") {
                                 <td>https://www.youtube.com/embed/{{$slider['link']}}</td>
                                 <td> <iframe src="https://www.youtube.com/embed/{{$slider['link']}}"></iframe></td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/videos/'.$slider->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/videos/'.$slider->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm bg-purple"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/videos/'.$slider->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/videos/'.$slider->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm bg-red"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

@@ -14,9 +14,9 @@ if ($lang == "ar") {
     <!-- Logo -->
     <a href="{{URL::to('admin')}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>B</b></span>
+        <span class="logo-mini"><img src="{{ asset('brand/mark.png') }}" alt="" style="width:34px;height:34px"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>{{$site[$lang.'_title']}}</b></span>
+        <span class="logo-lg"><img src="{{ asset('brand/mark.png') }}" alt="" style="width:34px;height:34px"> <b>Call Fahim</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -55,8 +55,8 @@ if ($lang == "ar") {
                 </li>
 
 
-                @if(\App\Permission::where('group_id', Auth::User()->group_id)->where('permission', 'users')->count() > 0)
-                <?php $users = \App\User::where('seen', 'no')->orderBy('id', 'desc')->get(); ?>
+                @if(\App\Models\Permission::where('group_id', Auth::User()->group_id)->where('permission', 'users')->count() > 0)
+                <?php $users = \App\Models\User::where('seen', 'no')->orderBy('id', 'desc')->get(); ?>
 
                 @if(Auth::User()->Group['country'] == "all")
                 <li class="dropdown messages-menu">
@@ -70,7 +70,7 @@ if ($lang == "ar") {
                             <ul class="menu inner-content-div">
                                 @foreach($users as $user)
                                 <li><!-- start message -->
-                                    <a href="{{URL::to('admin/users/'.$user['id'].'/edit')}}">
+                                    <a href="{{URL::to('admin/users/'.$user->uuid.'/edit')}}">
                                         <div class="{{$pull}}">
                                             <img src="{{URL::to('admin_panel')}}/images/user2-160x160.jpg" class="rounded-circle" alt="{{$user['name']}}">
                                         </div>
@@ -102,7 +102,7 @@ if ($lang == "ar") {
                             <ul class="menu inner-content-div">
                                 @foreach($users as $user)
                                 <li><!-- start message -->
-                                    <a href="{{URL::to('admin/users/'.$user['id'].'/edit')}}">
+                                    <a href="{{URL::to('admin/users/'.$user->uuid.'/edit')}}">
                                         <div class="{{$pull}}">
                                             <img src="{{URL::to('admin_panel')}}/images/user2-160x160.jpg" class="rounded-circle" alt="{{$user['name']}}">
                                         </div>
@@ -126,8 +126,8 @@ if ($lang == "ar") {
 
                 @endif
 
-                @if(\App\Permission::where('group_id', Auth::User()->group_id)->where('permission', 'contact')->count() > 0)
-                <?php $contacts = \App\Contact::where('seen', 'no')->orderBy('id', 'desc')->get(); ?>
+                @if(\App\Models\Permission::where('group_id', Auth::User()->group_id)->where('permission', 'contact')->count() > 0)
+                <?php $contacts = \App\Models\Contact::where('seen', 'no')->orderBy('id', 'desc')->get(); ?>
                 <li class="dropdown messages-menu">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope"></i>
@@ -139,7 +139,7 @@ if ($lang == "ar") {
                             <ul class="menu inner-content-div">
                                 @foreach($contacts as $contact)
                                 <li><!-- start message -->
-                                    <a href="{{URL::to('admin/contact/'.$contact['id'].'/edit')}}">
+                                    <a href="{{URL::to('admin/contact/'.$contact->uuid.'/edit')}}">
                                         <div class="{{$pull}}">
                                             <img src="{{URL::to('admin_panel')}}/images/user2-160x160.jpg" class="rounded-circle" alt="{{$contact['name']}}">
                                         </div>

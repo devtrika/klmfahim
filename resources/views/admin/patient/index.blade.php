@@ -63,13 +63,13 @@ if ($lang == "ar") {
                                 <td>{{$page['phone']}}</td>        
                                 <td>{{$page['address']}}</td>    
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/patient/'.$page->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/patient/'.$page->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
 
-                                    {{ Form::open(array('url' =>'admin/patient/'.$page->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/patient/'.$page->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
 

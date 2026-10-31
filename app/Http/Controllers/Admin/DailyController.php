@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Daily;
+use App\Models\Daily;
 use Mail;
 
 class DailyController  extends Controller {
@@ -20,7 +20,7 @@ class DailyController  extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-       \App\Daily::where('created_at', '<', date('y-m-d'))->delete();
+       \App\Models\Daily::where('created_at', '<', date('y-m-d'))->delete();
        
         $contacts = $this->contact->getAll();
         return view('admin.daily.index', ['contacts' => $contacts]);

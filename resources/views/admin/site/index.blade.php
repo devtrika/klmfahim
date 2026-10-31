@@ -194,6 +194,18 @@ if ($lang == "ar") {
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="slogan_ar" class="col-sm-2 col-form-label">{{trans('layout.slogan_ar')}}</label>
+                            <div class="col-sm-4">{{ Form::text('ar_slogan', $site['ar_slogan'], ['class'=>'form-control','id'=>'slogan_ar']) }}</div>
+                            <label for="slogan_en" class="col-sm-2 col-form-label">{{trans('layout.slogan_en')}}</label>
+                            <div class="col-sm-4">{{ Form::text('en_slogan', $site['en_slogan'], ['class'=>'form-control','id'=>'slogan_en']) }}</div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="trn" class="col-sm-2 col-form-label">{{trans('layout.trn')}}</label>
+                            <div class="col-sm-4">{{ Form::text('trn', $site['trn'], ['class'=>'form-control','id'=>'trn','dir'=>'ltr']) }}</div>
+                            <label for="vat_rate" class="col-sm-2 col-form-label">{{trans('layout.vat_rate')}}</label>
+                            <div class="col-sm-4">{{ Form::number('vat_rate', $site['vat_rate'] + 0, ['class'=>'form-control','id'=>'vat_rate','step'=>'0.01','min'=>0,'max'=>100]) }}</div>
+                        </div>
+                        <div class="form-group row">
                             <label for="input_10" class="col-sm-2 col-form-label">{{trans('layout.facebook')}}</label>
                             <div class="col-sm-4">
                                 {{ Form::text('facebook',  $site['facebook'], ['class'=>'form-control','id'=>'input_10']) }}

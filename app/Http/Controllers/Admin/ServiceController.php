@@ -2,112 +2,81 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StoreAll;
-use App\Http\Requests\UpdateAll;
-use App\Service;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Service;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class ServiceController extends Controller {
-
-    //
-    function __construct(Service $service) {
-        $this->service = $service;
+class ServiceController extends Controller
+{
+    public function index()
+    {
+        return view('admin.services.index', ['services' => Service::orderBy('sort')->get()]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        //
-        $services = $this->service->getAll();
-        return view('admin.services.index', ['services' => $services]);
+    public function create()
+    {
+        return view('admin.services.form', ['service' => (new Service)->forceFill(['category' => 'setup'])]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-        return view('admin.services.create');
+    public function store(Request $request)
+    {
+        $service = new Service;
+        $this->fill($service, $request);
+
+        return redirect('admin/services')->with('message', trans('layout.add_suc'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAll $request) {
-        $file = $request['image'];
-        $filename = Str::random(5) . '.' . $file->getClientOriginalName();
-        $destinationPath = public_path('upload/services/');
-        $file->move($destinationPath, $filename);
-
-        $this->service->add($request, $filename);
-        $message = trans('layout.add_suc');
-        return back()->with(['message' => $message]);
+    public function edit(Service $service)
+    {
+        return view('admin.services.form', ['service' => $service]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
+    public function update(Request $request, Service $service)
+    {
+        $this->fill($service, $request);
+
+        return redirect('admin/services')->with('message', trans('layout.edit_suc'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-        $service= $this->service->getById($id);
-        return view('admin.services.edit', ['service' => $service]);
+    public function destroy(Service $service)
+    {
+        if ($service->image) {
+            File::delete(public_path('upload/services/'.$service->image));
+        }
+        $service->delete();
+
+        return back()->with('message', trans('layout.delete_suc'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAll $request, $id) {
-        //
-        $filename = FALSE;
+    private function fill(Service $service, Request $request): void
+    {
+        $data = $request->validate([
+            'category' => 'required|in:setup,government,corporate',
+            'icon' => 'nullable|string|max:60',
+            'ar_title' => 'required|string|max:255',
+            'en_title' => 'required|string|max:255',
+            'ar_short' => 'nullable|string|max:255',
+            'en_short' => 'nullable|string|max:255',
+            'ar_desc' => 'required|string',
+            'en_desc' => 'required|string',
+            'sort' => 'nullable|integer|min:0',
+            'image' => 'nullable|image|max:4096',
+        ]);
+
         if ($request->hasFile('image')) {
-            $file = $request['image'];
-            $filename = Str::random(5) . '.' . $file->getClientOriginalName();
-            $destinationPath = public_path('upload/services/');
-            $file->move($destinationPath, $filename);
+            $file = $request->file('image');
+            $filename = Str::random(5).'.'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$file->extension();
+            $file->move(public_path('upload/services/'), $filename);
+            if ($service->image) {
+                File::delete(public_path('upload/services/'.$service->image));
+            }
+            $service->image = $filename;
         }
 
-        $this->service->edit($id, $request, $filename);
-        $message = trans('layout.edit_suc');
-        return redirect('admin/services')->with(['message' => $message]);
+        unset($data['image']);
+        $data['sort'] ??= 0;
+        $service->forceFill($data)->save();
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        $this->service->remove($id);
-        $message = trans('layout.delete_suc');
-        return back()->with(['message' => $message]);
-    }
-
 }

@@ -57,14 +57,14 @@ if ($lang == "ar") {
                                 <td>{{$i}}</td>
                                 <td>{{$page['ar_title']}}</td>    <td>{{$page['en_title']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/pages/'.$page->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/pages/'.$page->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 
                                 <td>
                                     @if($page->id >3)
-                                    {{ Form::open(array('url' =>'admin/pages/'.$page->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/pages/'.$page->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                     @endif

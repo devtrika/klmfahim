@@ -11,7 +11,7 @@ if ($lang == "ar") {
 }else{
     $lang ='en';
 }
-$site = App\Site::first();
+$site = App\Models\Site::first();
 ?>
 
 <html lang="{{$lang}}">
@@ -71,11 +71,13 @@ $site = App\Site::first();
         <!-- google font -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('admin_panel/css/brand.css') }}?v={{ filemtime(public_path('admin_panel/css/brand.css')) }}">
     </head>
     <body class="hold-transition login-page">
         <div class="login-box" dir="{{$dir}}">
             <div class="login-logo">
-                <a href="{{URL::to('/')}}"><b>{{$site[$lang.'_title']}}</b></a>
+                <a href="{{URL::to('/')}}"><img src="{{ asset('brand/logo-light.png') }}" alt="Call Fahim" style="width:200px;margin:0 auto"></a>
             </div>
             
             @yield('content')

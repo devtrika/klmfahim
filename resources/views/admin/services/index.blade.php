@@ -38,13 +38,14 @@ if ($lang == "ar") {
 
             <div class="box">
                 <div class="box-header">
-                    <a href="{{URL::to('admin/services/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.service_add')}}</a>
+                    @perm('services_add')<a href="{{URL::to('admin/services/create')}}" class="btn btn-lg bg-fuchsia">{{trans('layout.service_add')}}</a>@endperm
                 </div>
                 <div class="box-body">
                     <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 table-responsive">
                         <thead>
                             <tr>
                                 <th class="{{$text}}">{{trans('layout.service_title_ar')}}</th>
+                                <th class="{{$text}}">{{trans('layout.category')}}</th>
                                                                 <th class="{{$text}}">{{trans('layout.service_title_en')}}</th>
 
                                 <th class="{{$text}}">{{trans('layout.edit')}}</th>
@@ -55,16 +56,17 @@ if ($lang == "ar") {
                             @foreach($services as $service)
                             <tr>
                                 <td>{{$service['ar_title']}}</td>
+                                <td><span class="label-copper">{{ trans('layout.category_'.$service->category) }}</span></td>
                                  <td>{{$service['en_title']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/services/'.$service->id.'/edit', 'method' => 'GET')) }}
+                                    @perm('services_edit'){{ Form::open(array('url' =>'admin/services/'.$service->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
-                                    {{ Form::close() }}
+                                    {{ Form::close() }}@endperm
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/services/'.$service->id, 'method' => 'DELETE')) }}
+                                    @perm('services_delete'){{ Form::open(array('url' =>'admin/services/'.$service->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
-                                    {{ Form::close() }}
+                                    {{ Form::close() }}@endperm
                                 </td>
                             </tr>
                             @endforeach

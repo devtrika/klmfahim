@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "klmfahim",
+      "runtimeExecutable": "/opt/homebrew/opt/php@8.4/bin/php",
+      "runtimeArgs": ["artisan", "serve", "--host=127.0.0.1", "--port=8000"],
+      "port": 8000
+    }
+  ]
+}

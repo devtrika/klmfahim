@@ -68,12 +68,12 @@ if ($lang == "ar") {
                                     @endif
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.reply')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

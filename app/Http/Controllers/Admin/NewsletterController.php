@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Newsletter;
+use App\Models\Newsletter;
 use App\Http\Requests\UpdateNewsletter;
 use Mail;
 

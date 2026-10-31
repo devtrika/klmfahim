@@ -13,3 +13,4 @@ yarn-error.log
 /.vscode
 /nbproject/
 
+.DS_Store

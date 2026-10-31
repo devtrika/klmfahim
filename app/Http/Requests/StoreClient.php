@@ -27,7 +27,7 @@ class StoreClient extends FormRequest {
             "en_title" => "required",
 //            "ar_opinion" => "required",
 //            "en_opinion" => "required",
-            "image" => "required"
+            "image" => "nullable|image|max:4096"
         ];
     }
 

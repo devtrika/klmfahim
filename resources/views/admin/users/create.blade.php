@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form method="post" enctype="multipart/form-data" action="{{URL::to('admin/users')}}{{ isset($user) ? '/'.$user->id : '' }}" novalidate="novalidate">
+        <form method="post" enctype="multipart/form-data" action="{{URL::to('admin/users')}}{{ isset($user) ? '/'.$user->uuid : '' }}" novalidate="novalidate">
             {!! isset($user) ? '<input type="hidden" name="_method" value="PUT">' : '' !!}
             {{ csrf_field() }}
 

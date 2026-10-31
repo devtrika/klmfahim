@@ -2,120 +2,100 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
-use App\Newsletter;
-use App\Page;
+use App\Models\Blog;
+use App\Models\CalculatorItem;
+use App\Models\Client;
+use App\Models\Contact;
+use App\Models\Feature;
+use App\Models\Opinon;
+use App\Models\Page;
+use App\Models\Service;
 use Illuminate\Http\Request;
-use Config;
-use Mail;
-use Cookie;
 
-class HomeController extends Controller {
-
-    function __construct(Contact $Contact) {
-        $this->contact = $Contact;
-    }
-
-    public function index() {
-        return view('interface.index');
-    }
-
-    public function services() {
-        return view('interface.services');
-    }
-
-    public function html() {
-        return view('interface.html');
-    }
-
-    public function allnews($seo) {
-        return view('interface.allnews');
-    }
-
-    public function allservices($seo) {
-        return view('interface.allservices');
-    }
-
-    public function slide($id) {
-        $blog = \App\Slider::where('id', $id)->first();
-        return view('interface.single', ['page' => $blog, 'type' => 'slider']);
-    }
-
-    public function service($id) {
-        $blog = \App\Service::where('id', $id)->first();
-        return view('interface.single', ['page' => $blog, 'type' => 'services']);
-    }
-
-    public function project($id) {
-        $blog = \App\Project::where('id', $id)->first();
-        return view('interface.single', ['page' => $blog, 'type' => 'projects']);
-    }
-
-    public function page($id, $seo) {
-        $blog = \App\Page::where('id', $id)->first();
-        return view('interface.single', ['page' => $blog, 'type' => 'pages']);
-    }
-
-    public function client($id) {
-        $blog = \App\Client::where('id', $id)->first();
-        return view('interface.single', ['page' => $blog, 'type' => 'clients']);
-    }
-
-    public function news($id) {
-        $blog = \App\Blog::where('id', $id)->first();
-        $blog->increment('views');
-        return view('interface.single', ['page' => $blog, 'type' => 'news']);
-    }
-
-    public function projects() {
-        return view('interface.projects');
-    }
-
-    public function contactus() {
-        return view('interface.contact');
-    }
-
-    public function contact(Request $request) {
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'title' => 'required',
-            'captcha' => 'required|captcha',
-            'message' => 'required',
+class HomeController extends Controller
+{
+    public function index()
+    {
+        return view('front.home', [
+            'jurisdictions' => CalculatorItem::where('group', 'jurisdiction')->orderBy('sort')->get(),
+            'visaPrice' => (int) CalculatorItem::where('group', 'visa')->value('price'),
+            'partners' => Client::orderBy('id')->get(),
+            'features' => Feature::orderBy('sort')->get(),
+            'government' => Service::where('category', 'government')->orderBy('sort')->limit(8)->get(),
+            'services' => Service::where('category', '!=', 'government')->orderBy('sort')->get(),
+            'opinions' => Opinon::latest()->limit(3)->get(),
+            'posts' => Blog::where('active', 'yes')->latest()->limit(3)->get(),
         ]);
-        $req = $request->only('name', 'phone', 'email', 'title', 'message');
-        $this->contact->add($req);
-        $message = trans('layout.send_suc');
-        return back()->with(['message' => $message]);
     }
 
-    public function reloadCaptcha() {
+    public function services()
+    {
+        return view('front.services', [
+            'services' => Service::orderBy('sort')->get(),
+            'features' => Feature::orderBy('sort')->get(),
+        ]);
+    }
+
+    public function government()
+    {
+        return view('front.government', [
+            'services' => Service::where('category', 'government')->orderBy('sort')->get(),
+        ]);
+    }
+
+    public function service(string $uuid)
+    {
+        $service = Service::findByUuid($uuid);
+
+        return view('front.service', [
+            'service' => $service,
+            'related' => Service::whereKeyNot($service->id)->where('category', $service->category)->orderBy('sort')->limit(3)->get(),
+        ]);
+    }
+
+    public function news()
+    {
+        return view('front.news', [
+            'posts' => Blog::where('active', 'yes')->latest()->paginate(9),
+        ]);
+    }
+
+    public function post(string $uuid)
+    {
+        $post = Blog::where('active', 'yes')->where('uuid', $uuid)->firstOrFail();
+        $post->increment('views');
+
+        return view('front.article', ['item' => $post, 'kind' => 'news']);
+    }
+
+    public function page(string $uuid)
+    {
+        return view('front.article', ['item' => Page::findByUuid($uuid), 'kind' => 'page']);
+    }
+
+    public function contactus()
+    {
+        return view('front.contact');
+    }
+
+    public function contact(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:100',
+            'phone' => 'required|string|max:40',
+            'email' => 'required|email|max:150',
+            'title' => 'required|string|max:150',
+            'message' => 'required|string|max:5000',
+            'captcha' => 'required|captcha',
+        ]);
+
+        (new Contact)->add($data);
+
+        return back()->with('message', __('front.sent_ok'));
+    }
+
+    public function reloadCaptcha()
+    {
         return response()->json(['captcha' => captcha_img()]);
-    }
-
-//    public function subscribe(Request $request) {
-//        $this->validate($request, [
-//            'email' => 'required|email',
-//        ]);
-//
-//        $Newsletter = new Newsletter();
-//        $Newsletter->email =$request['email'];
-//        $Newsletter->save();
-//        return    response()->json(trans('interface.subscribe_msg'));
-//    }
-    public function subscribe($id) {
-        $News = Newsletter::where('email', $id)->first();
-        if ($News)
-            return response()->json(['msg' => trans('layout.subscribe_msg_fail')]);
-        $Newsletter = new Newsletter();
-        $Newsletter->email = $id;
-        $Newsletter->save();
-        return response()->json(['msg' => trans('layout.subscribe_msg')]);
-    }
-
-    public function cost($id) {
-        $price = ShipPrices::where('country_id', $id)->with('country')->first();
-        return response()->json($price);
     }
 }

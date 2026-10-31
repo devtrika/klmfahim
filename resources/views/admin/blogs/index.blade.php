@@ -63,12 +63,12 @@ if ($lang == "ar") {
                                 <td>{{$blog['views']}}</td>
                                
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/news/'.$blog->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/news/'.$blog->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/news/'.$blog->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/news/'.$blog->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

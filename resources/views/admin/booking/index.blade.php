@@ -56,12 +56,12 @@ if ($lang == "ar") {
                                 <td>{{$contact['name']}}</td>
                                 <td>{{$contact['phone']}}</td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/booking/'.$contact->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/booking/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.show')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/booking/'.$contact->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/booking/'.$contact->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>

@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/patient/'.$page['id'])}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('admin/patient/'.$page->uuid)}}" method="post" enctype="multipart/form-data">
             {{ Form::hidden('_method','PATCH') }}
             {{ csrf_field() }}
 
@@ -125,7 +125,7 @@ if ($lang == "ar") {
                            
                             <div class="col-sm-12 text-center text-bold">{{trans('layout.records')}}</div>
                             <br><br>
-                   <?php  $patients = \App\Patient_status::where('user',$page['id'])->orderby('id','desc')->get(); ?>
+                   <?php  $patients = \App\Models\Patient_status::where('user',$page['id'])->orderby('id','desc')->get(); ?>
                             @foreach($patients as $patient)
                             <div class="col-sm-3">
                                 {{ Form::select('statusdd', ['detection'=>trans('layout.detection') , 'revealed'=>trans('layout.revealed')],$patient['status'], ['class'=>'form-control','disabled'=>'disabled']) }}

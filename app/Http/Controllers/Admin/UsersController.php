@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Group;
+use App\Models\User;
+use App\Models\Group;
 use App\Http\Requests\StoreUser;
 class UsersController  extends Controller {
     function __construct(User $user ,Group $Group) {

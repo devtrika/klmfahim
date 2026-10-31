@@ -54,7 +54,7 @@ if ($lang == "ar") {
                             <label for="input_1" class="col-sm-3 col-form-label">{{trans('layout.code')}}</label>
                             <div class="col-sm-9">
                                 <?php
-                                $code = \App\Patient::max('id');
+                                $code = \App\Models\Patient::max('id');
                                 $code = $code + 1;
                                 ?>
                                 {{ Form::text('code', $code, ['class'=>'form-control','onblur'=>'changefun()','disabled'=>'disabled']) }}

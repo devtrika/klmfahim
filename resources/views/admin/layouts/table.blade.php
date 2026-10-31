@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-$lang = 'ar';//LaravelLocalization::getCurrentLocale() ;
+$lang = LaravelLocalization::getCurrentLocale();
 $dir = "";
 $arrow = "right";
 $pull = "pull-left";
@@ -9,7 +9,7 @@ if ($lang == "ar") {
     $arrow = "left";
     $pull = "pull-right";
 }
-$site = App\Site::first();
+$site = App\Models\Site::first();
 ?>
 <html lang="{{$lang}}">
     <head>
@@ -54,6 +54,8 @@ $site = App\Site::first();
         <!-- google font -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('admin_panel/css/brand.css') }}?v={{ filemtime(public_path('admin_panel/css/brand.css')) }}">
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">

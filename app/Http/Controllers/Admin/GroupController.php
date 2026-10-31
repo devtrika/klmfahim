@@ -2,114 +2,89 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Group;
-use App\Permission;
-use App\Http\Requests\StoreGroup;
-use App\Http\Requests\UpdateGroup;
+use App\Models\Group;
+use App\Models\Permission;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
-class GroupController extends Controller {
-
-    function __construct(Group $Group, Permission $Permission) {
-        $this->group = $Group;
-        $this->permission = $Permission;
+class GroupController extends Controller
+{
+    public function index()
+    {
+        return view('admin.groups.index', [
+            'groups' => Group::withCount('users')->get(),
+            'counts' => Permission::selectRaw('group_id, count(*) as total')->groupBy('group_id')->pluck('total', 'group_id'),
+        ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        //
-        $groups = $this->group->getAll();
-        return view('admin.groups.index', ['groups' => $groups]);
+    public function create()
+    {
+        return view('admin.groups.form', ['group' => new Group, 'granted' => []]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-        return view('admin.groups.create');
+    public function store(Request $request)
+    {
+        $group = new Group;
+        $this->save($group, $request);
+
+        return redirect('admin/groups')->with('message', trans('layout.add_suc'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreGroup $request) {
-        $new = $this->group->add($request);
-        if (isset($request['permissions'])) {
-            $premissions = $request['permissions'];
-            foreach ($premissions as $pre) {
-                $this->permission->add($pre, $new);
-            }
+    public function edit(Group $group)
+    {
+        return view('admin.groups.form', [
+            'group' => $group,
+            'granted' => Permission::where('group_id', $group->id)->pluck('permission')->all(),
+        ]);
+    }
+
+    public function update(Request $request, Group $group)
+    {
+        $this->save($group, $request);
+
+        return redirect('admin/groups')->with('message', trans('layout.edit_suc'));
+    }
+
+    public function destroy(Group $group)
+    {
+        if ($group->id === (int) config('permissions.super_group') || User::where('group_id', $group->id)->exists()) {
+            return back()->with('message', trans('layout.group_in_use'));
         }
-        $message = trans('layout.add_suc');
-        return back()->with(['message' => $message]);
+
+        DB::transaction(function () use ($group) {
+            Permission::where('group_id', $group->id)->delete();
+            $group->delete();
+        });
+
+        return back()->with('message', trans('layout.delete_suc'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
+    private function save(Group $group, Request $request): void
+    {
+        $data = $request->validate([
+            'ar_name' => ['required', 'string', 'max:255', Rule::unique('groups', 'ar_name')->ignore($group->id)],
+            'en_name' => ['required', 'string', 'max:255', Rule::unique('groups', 'en_name')->ignore($group->id)],
+            'permissions' => 'array',
+            'permissions.*' => [Rule::in(all_permissions())],
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-        $group = $this->group->getById($id);
-        return view('admin.groups.edit', ['group' => $group]);
-    }
+        // The top admin group always keeps every permission.
+        $permissions = $group->id === (int) config('permissions.super_group')
+            ? all_permissions()
+            : array_values(array_unique($data['permissions'] ?? []));
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateGroup $request, $id) {
-        //
-        $this->group->edit($id, $request);
-        $this->permission->delByGroup($id);
-        if (isset($request['permissions'])) {
-            $premissions = $request['permissions'];
-            foreach ($premissions as $pre) {
-                $this->permission->add($pre, $id);
-            }
-        }
-        $message = trans('layout.edit_suc');
-        return redirect('admin/groups')->with(['message' => $message]);
-    }
+        DB::transaction(function () use ($group, $data, $permissions) {
+            $group->ar_name = $data['ar_name'];
+            $group->en_name = $data['en_name'];
+            $group->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
-        $this->group->remove($id);
-        $this->permission->delByGroup($id);
-        $message = trans('layout.delete_suc');
-        return back()->with(['message' => $message]);
+            Permission::where('group_id', $group->id)->delete();
+            Permission::insert(array_map(fn ($p) => [
+                'group_id' => $group->id, 'permission' => $p, 'created_at' => now(), 'updated_at' => now(),
+            ], $permissions));
+        });
     }
-
 }

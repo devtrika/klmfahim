@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Group;
+use App\Models\Group;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable {
+    use \App\Models\Concerns\HasUuid;
+
 
     use Notifiable;
 
@@ -45,7 +47,7 @@ class User extends Authenticatable {
     }
 
     public function getById($id) {
-        return $this->find($id);
+        return $this->where('uuid', $id)->firstOrFail();
     }
 
     public function add($data) {
@@ -61,7 +63,7 @@ class User extends Authenticatable {
     }
 
     public function edit($id, $data) {
-        $user = $this->find($id);
+        $user = $this->where('uuid', $id)->firstOrFail();
         $user->active = $data['active'];
         $user->name = $data['name'];
         $user->username = $data['username'];
@@ -74,7 +76,7 @@ class User extends Authenticatable {
     }
 
     public function edit_seen($id) {
-        $user = $this->find($id);
+        $user = $this->where('uuid', $id)->firstOrFail();
         $user->seen = 'yes';
         return $user->save();
     }
@@ -92,7 +94,7 @@ class User extends Authenticatable {
     }
 
     public function edit_admin($id, $data) {
-        $user = $this->find($id);
+        $user = $this->where('uuid', $id)->firstOrFail();
         $user->active = $data['active'];
         // $user->group_id = $data['group_id'];
         $user->name = $data['name'];

@@ -22,12 +22,30 @@ if ($lang == "ar") {
 
 <!-- Main content -->
 <section class="content">
+    <div class="cf-tiles">
+        <a class="cf-tile" href="{{ URL::to('admin/requests') }}">
+            <i class="fa fa-calculator"></i>
+            <span><b>{{ \App\Models\CostRequest::where('seen', false)->count() }}</b><small>{{ trans('layout.requests_new') }}</small></span>
+        </a>
+        <a class="cf-tile" href="{{ URL::to('admin/contact') }}">
+            <i class="fa fa-envelope"></i>
+            <span><b>{{ \App\Models\Contact::where('seen', 'no')->count() }}</b><small>{{ trans('layout.contact') }}</small></span>
+        </a>
+        <a class="cf-tile" href="{{ URL::to('admin/services') }}">
+            <i class="fa fa-briefcase"></i>
+            <span><b>{{ \App\Models\Service::count() }}</b><small>{{ trans('layout.services') }}</small></span>
+        </a>
+        <a class="cf-tile" href="{{ URL::to('admin/clients') }}">
+            <i class="fa fa-handshake-o"></i>
+            <span><b>{{ \App\Models\Client::count() }}</b><small>{{ trans('layout.clients') }}</small></span>
+        </a>
+    </div>
 
     <div class="row">
 
        
         <div class="col-xl-12">
-            <?php $per = \App\Permission::where('group_id', Auth::user()->id)->where('permission', 'contact')->first() ?>
+            <?php $per = \App\Models\Permission::where('group_id', Auth::user()->id)->where('permission', 'contact')->first() ?>
             @if($per)
             <div class="box">
                 <div class="text-center">{{trans('layout.contact')}}</div>
@@ -47,7 +65,7 @@ if ($lang == "ar") {
                         <tbody>
                             <?php
                             $i = 1;
-                            $contacts = App\Contact::where('seen', 'no')->get();
+                            $contacts = App\Models\Contact::where('seen', 'no')->get();
                             ?>
                             @foreach($contacts as $contact)
                             <tr>
@@ -65,12 +83,12 @@ if ($lang == "ar") {
                                     @endif
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.reply')}} </button>
                                     {{ Form::close() }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->id, 'method' => 'DELETE')) }}
+                                    {{ Form::open(array('url' =>'admin/contact/'.$contact->uuid, 'method' => 'DELETE')) }}
                                     <button  type="submit" class="btn default btn-sm btn-danger"><i class="fa fa-trash-o"></i> {{trans('layout.delete')}} </button>
                                     {{ Form::close() }}
                                 </td>
@@ -102,7 +120,7 @@ if ($lang == "ar") {
                     </div>
                 </div>
 
-                <!--                <?php $groups = \App\Group::count(); ?>
+                <!--                <?php $groups = \App\Models\Group::count(); ?>
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="info-box">
                                         <a href="{{URL::to('admin/groups/')}}">
@@ -116,7 +134,7 @@ if ($lang == "ar") {
                                     </div>
                                 </div>-->
 
-                <?php $admins = \App\User::where('type', 'admin')->count(); ?>
+                <?php $admins = \App\Models\User::where('type', 'admin')->count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/admins/')}}">
@@ -132,7 +150,7 @@ if ($lang == "ar") {
 
 
 
-                <?php $clients = \App\Client::count(); ?>
+                <?php $clients = \App\Models\Client::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/clients')}}">
@@ -146,7 +164,7 @@ if ($lang == "ar") {
                     </div>
                 </div>
 
-                <?php $projects = \App\Project::count(); ?>
+                <?php $projects = \App\Models\Project::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/projects')}}">
@@ -160,7 +178,7 @@ if ($lang == "ar") {
                     </div>
                 </div>
 
-                <?php $services = \App\Service::count(); ?>
+                <?php $services = \App\Models\Service::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/services')}}">
@@ -174,7 +192,7 @@ if ($lang == "ar") {
                     </div>
                 </div>
 
-                <?php $services = \App\Blog::count(); ?>
+                <?php $services = \App\Models\Blog::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/news')}}">
@@ -187,7 +205,7 @@ if ($lang == "ar") {
                         </a>
                     </div>
                 </div>
-                <?php $services = \App\Opinon::count(); ?>
+                <?php $services = \App\Models\Opinon::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/opinions')}}">
@@ -201,7 +219,7 @@ if ($lang == "ar") {
                     </div>
                 </div>
 
-                <?php $services = \App\Page::count(); ?>
+                <?php $services = \App\Models\Page::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/pages')}}">
@@ -215,7 +233,7 @@ if ($lang == "ar") {
                     </div>
                 </div>
 
-                <?php $slider = \App\Slider::count(); ?>
+                <?php $slider = \App\Models\Slider::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/slider/')}}">
@@ -233,7 +251,7 @@ if ($lang == "ar") {
 
 
 
-                <?php $contact = \App\Contact::count(); ?>
+                <?php $contact = \App\Models\Contact::count(); ?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="info-box">
                         <a href="{{URL::to('admin/contact/')}}">

@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/news/'.$blog['id'])}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('admin/news/'.$blog->uuid)}}" method="post" enctype="multipart/form-data">
             {{ Form::hidden('_method','PATCH') }}
             {{ csrf_field() }}
 

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Group;
+use App\Models\User;
+use App\Models\Group;
 use App\Http\Requests\StoreAdmin;
 use App\Http\Requests\UpdateAdmin;
 use Illuminate\Support\Arr;
@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 class AdminsController extends Controller {
 
     //
-    function __construct(User $User, Group $Group, \App\Permission $permission) {
+    function __construct(User $User, Group $Group, \App\Models\Permission $permission) {
         $this->user = $User;
         $this->group = $Group;
         $this->permission = $permission;

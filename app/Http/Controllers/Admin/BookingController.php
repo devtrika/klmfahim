@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Booking;
+use App\Models\Booking;
 use App\Http\Requests\UpdateContact;
 use Mail;
 

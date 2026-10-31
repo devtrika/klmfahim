@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\UpdateClient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Opinon;
+use App\Models\Opinon;
 // use App\Http\Requests\StoreOP ;
 use Illuminate\Support\Str;
 

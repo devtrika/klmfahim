@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Video;
+use App\Models\Video;
 use App\Http\Requests\StoreVideo;
 
 class VideoController extends Controller {

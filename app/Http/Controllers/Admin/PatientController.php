@@ -9,7 +9,7 @@ use Mail;
 class PatientController extends Controller {
 
     //
-    function __construct(\App\Patient $Contact) {
+    function __construct(\App\Models\Patient $Contact) {
         $this->contact = $Contact;
     }
 
@@ -48,7 +48,7 @@ class PatientController extends Controller {
         ]);
         $id = $this->contact->add($request);
         if ($request['money'] && $request['status'] && $request['dates']) {
-            $pp = new \App\Patient_status();
+            $pp = new \App\Models\Patient_status();
             $pp->money = $request['money'];
             $pp->status = $request['status'];
             $pp->user = $id;
@@ -67,7 +67,7 @@ class PatientController extends Controller {
         ]);
         $this->contact->edit($id, $request);
         if ($request['money'] && $request['status'] && $request['dates']) {
-            $pp = new \App\Patient_status();
+            $pp = new \App\Models\Patient_status();
             $pp->money = $request['money'];
             $pp->status = $request['status'];
             $pp->user = $id;
@@ -79,7 +79,7 @@ class PatientController extends Controller {
     }
 
     public function removethis($id) {
-        \App\Patient_status::where('id', $id)->delete();
+        \App\Models\Patient_status::where('id', $id)->delete();
         $message = trans('layout.delete_suc');
         return back()->with(['message' => $message]);
     }

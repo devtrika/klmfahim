@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/slider/'.$slider['id'])}}" method="post" enctype="multipart/form-data">
+        <form action="{{URL::to('admin/slider/'.$slider->uuid)}}" method="post" enctype="multipart/form-data">
             {{ Form::hidden('_method','PATCH') }}
             {{ csrf_field() }}
 

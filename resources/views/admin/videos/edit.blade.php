@@ -33,7 +33,7 @@ if ($lang == "ar") {
             </div>
         </div>
 
-        <form action="{{URL::to('admin/videos/'.$slider['id'])}}" method="post">
+        <form action="{{URL::to('admin/videos/'.$slider->uuid)}}" method="post">
             {{ Form::hidden('_method','PATCH') }}
             {{ csrf_field() }}
 

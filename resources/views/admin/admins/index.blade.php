@@ -68,7 +68,7 @@ if ($lang == "ar") {
                                 </td>
                               
                                 <td>
-                                    {{ Form::open(array('url' =>'admin/admins/'.$user->id.'/edit', 'method' => 'GET')) }}
+                                    {{ Form::open(array('url' =>'admin/admins/'.$user->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-success"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>
                                     {{ Form::close() }}
                                 </td>

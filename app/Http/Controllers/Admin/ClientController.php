@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\UpdateClient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Client;
+use App\Models\Client;
 use App\Http\Requests\StoreClient;
 use Illuminate\Support\Str;
 
@@ -50,10 +50,12 @@ class ClientController extends Controller {
             'href' => 'url',
         ]);
 
-        $file = $request['image'];
-        $filename = Str::random(5) . '.' . $file->getClientOriginalName();
-        $destinationPath = public_path('upload/clients/');
-        $file->move($destinationPath, $filename);
+        $filename = null;
+        if ($request->hasFile('image')) {
+            $file = $request['image'];
+            $filename = Str::random(5) . '.' . $file->getClientOriginalName();
+            $file->move(public_path('upload/clients/'), $filename);
+        }
 
         $this->client->add($request, $filename);
         $message = trans('layout.add_suc');

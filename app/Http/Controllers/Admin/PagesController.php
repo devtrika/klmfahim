@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Page;
+use App\Models\Page;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
 class PagesController extends Controller {
 
     //
-    function __construct(Page $Page, \App\Dept $dept) {
+    function __construct(Page $Page, \App\Models\Dept $dept) {
         $this->page = $Page;
         $this->dept = $dept;
     }

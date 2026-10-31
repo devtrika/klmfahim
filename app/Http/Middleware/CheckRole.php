@@ -3,23 +3,30 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class CheckRole {
+/**
+ * role:{module} — needs "{module}" to open the module, and the matching
+ * action permission for writes: create/store → "{module}_add",
+ * edit/update → "{module}_edit", destroy → "{module}_delete".
+ */
+class CheckRole
+{
+    private const ACTIONS = [
+        'create' => 'add', 'store' => 'add',
+        'edit' => 'edit', 'update' => 'edit',
+        'destroy' => 'delete',
+    ];
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $role) {
-        $found = \App\Models\Permission::where('group_id', \Auth::User()->group_id)->where('permission', $role)->count();
-        if ($found == 0) {
+    public function handle($request, Closure $next, $role)
+    {
+        $group = getgroup();
+        $method = $request->route()?->getActionMethod();
+        $action = self::ACTIONS[$method] ?? null;
+
+        if (! groupHasPermission($group, $role) || ($action && ! groupHasPermission($group, $role.'_'.$action))) {
             return redirect('admin/not_allow');
         }
+
         return $next($request);
     }
-
 }
