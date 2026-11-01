@@ -142,7 +142,10 @@
             </div>
             <div class="footer-bottom">
                 <span>© {{ date('Y') }} {{ $site->{$lang.'_title'} }} — {{ __('front.rights') }}</span>
-                <span>{{ $site->{$lang.'_slogan'} }}</span>
+                <a class="credit" href="https://enter-hash.com/{{ $lang }}" target="_blank" rel="noopener">
+                    {{ __('front.made_by') }}
+                    <span class="credit-mark" dir="ltr"><span>Enter<b>Hash</b></span> <code>&lt;build/&gt;</code></span>
+                </a>
             </div>
         </div>
     </footer>

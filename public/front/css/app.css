@@ -589,3 +589,12 @@ a.contact-item:hover { border-color: var(--copper); }
     .mobile-bar a { font-size: .66rem; }
     .mobile-bar .wa-center span.bubble { width: 56px; height: 56px; font-size: 1.65rem; top: -22px; }
 }
+
+/* Agency credit in the footer */
+.credit { display: inline-flex; align-items: center; gap: 8px; color: #8f8781; transition: color .2s ease; }
+.credit-mark { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .1); color: #e9e2dc; font-family: "Montserrat", sans-serif; font-weight: 500; letter-spacing: .01em; transition: border-color .2s ease, background-color .2s ease; }
+.credit-mark b { font-weight: 800; color: var(--copper-2); }
+.credit-mark code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: .78em; color: #8f8781; }
+.credit:hover { color: #e9e2dc; }
+.credit:hover .credit-mark { border-color: var(--copper); background: rgba(185, 122, 86, .12); }
+@media (max-width: 640px) { .footer-bottom { flex-direction: column; align-items: center; text-align: center; } }
