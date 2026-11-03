@@ -245,4 +245,11 @@
     </div>
 </section>
 @endif
+
+{{-- Accepted payment methods --}}
+<section class="pay-strip">
+    <div class="container">
+        @include('front.partials.payments', ['light' => true])
+    </div>
+</section>
 @endsection

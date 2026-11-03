@@ -140,7 +140,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
+            @unless ($active('')) @include('front.partials.payments') @endunless
+            <div class="footer-bottom" style="margin-top:0">
                 <span>© {{ date('Y') }} {{ $site->{$lang.'_title'} }} — {{ __('front.rights') }}</span>
                 <a class="credit" href="https://enter-hash.com/{{ $lang }}" target="_blank" rel="noopener">
                     {{ __('front.made_by') }}

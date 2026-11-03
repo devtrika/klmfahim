@@ -69,7 +69,7 @@ if ($lang == "ar") {
                         <div class="form-group row">
                             <label for="input_1" class="col-sm-2 col-form-label">{{trans('layout.site_desc_ar')}}</label>
                             <div class="col-sm-10">
-                                {{ Form::textarea('desc',  $site['desc'], ['class'=>'form-control','rows'=>'4']) }}
+                                {{ Form::textarea('desc',  $site['desc'], ['class'=>'form-control','rows'=>'4','data-plain'=>'1']) }}
                                 @if($errors->has('desc'))
                                 <div class="alert alert-danger">{{$errors->first('desc')}}</div>
                                 @endif
@@ -302,14 +302,14 @@ if ($lang == "ar") {
                         <div class="form-group row">
                             <label for="editor1" class="col-sm-2 col-form-label">{{trans('layout.footerword_ar')}}</label>
                             <div class="col-sm-4">
-                                {{ Form::textarea('ar_footerword', $site['ar_footerword'], ['class'=>'form-control','id'=>'','rows'=>10]) }}
+                                {{ Form::textarea('ar_footerword', $site['ar_footerword'], ['class'=>'form-control','id'=>'','rows'=>10,'data-plain'=>'1']) }}
                                 @if($errors->has('ar_footerword'))
                                 <div class="alert alert-danger">{{$errors->first('ar_footerword')}}</div>
                                 @endif
                             </div>
                             <label for="editor1" class="col-sm-2 col-form-label">{{trans('layout.footerword_en')}}</label>
                             <div class="col-sm-4">
-                                {{ Form::textarea('en_footerword', $site['en_footerword'], ['class'=>'form-control','id'=>'','rows'=>10]) }}
+                                {{ Form::textarea('en_footerword', $site['en_footerword'], ['class'=>'form-control','id'=>'','rows'=>10,'data-plain'=>'1']) }}
                                 @if($errors->has('en_footerword'))
                                 <div class="alert alert-danger">{{$errors->first('en_footerword')}}</div>
                                 @endif

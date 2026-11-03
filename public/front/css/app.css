@@ -598,3 +598,38 @@ a.contact-item:hover { border-color: var(--copper); }
 .credit:hover { color: #e9e2dc; }
 .credit:hover .credit-mark { border-color: var(--copper); background: rgba(185, 122, 86, .12); }
 @media (max-width: 640px) { .footer-bottom { flex-direction: column; align-items: center; text-align: center; } }
+
+/* Accepted payment methods */
+.pay { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid rgba(255, 255, 255, .08); margin-top: 40px; }
+.pay-head { display: flex; align-items: center; gap: 14px; }
+.pay-head > i { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(211, 162, 131, .14); color: var(--copper-2); font-size: 1.1rem; flex-shrink: 0; }
+.pay-head b { display: block; color: #fff; }
+.pay-head small { color: #8f8781; }
+.pay-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.pay-badge {
+    height: 36px; min-width: 58px; padding: 0 12px; border-radius: 9px; background: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 15px; letter-spacing: -.01em; line-height: 1;
+}
+.pay-badge i { font-size: 30px; line-height: 1; }
+.pay-badge.stripe i { color: #635bff; font-size: 34px; }
+.pay-badge.tabby { background: #3effc0; color: #111; }
+.pay-badge.tamara { background: linear-gradient(90deg, #fbd1b7, #f6a8c3); color: #1d1d1f; }
+.pay--compact { padding: 0; border: 0; margin: 14px 0 0; }
+.pay--compact .pay-badge { height: 30px; min-width: 50px; padding: 0 10px; font-size: 13px; }
+.pay--compact .pay-badge i { font-size: 25px; }
+.pay--compact .pay-badge.stripe i { font-size: 28px; }
+.pay--light { border-color: var(--line); }
+.pay--light .pay-head b { color: var(--ink); }
+.pay--light .pay-badge { border: 1px solid var(--line); }
+@media (max-width: 640px) {
+    .pay { justify-content: center; text-align: center; }
+    .pay-head { flex-direction: column; gap: 8px; }
+    .pay-list { justify-content: center; }
+}
+.summary .pay--compact { position: relative; }
+@media (max-width: 991px) { #calcForm .summary .pay--compact { display: none; } }
+.pay-strip { background: var(--sand); border-top: 1px solid var(--line); }
+.pay-strip .pay { margin: 0; border: 0; padding: 26px 0; }
+.pay--light .pay-head > i { background: var(--copper-3); color: var(--copper-deep); }
+.pay--light .pay-head small { color: var(--muted); }

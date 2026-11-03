@@ -133,30 +133,5 @@ if ($lang == "ar") {
     </div>
 
 </section>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>bootstrap4</title>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
-    </head>
-    <body>
 
-        <script>
-    $('#summernote').summernote({
-        placeholder: '',
-        tabsize: 2,
-        height: 100
-    });
-    $('#summernote1').summernote({
-        placeholder: '',
-        tabsize: 2,
-        height: 100
-    });
-
-        </script>
-    </body>
-</html>
 @endsection

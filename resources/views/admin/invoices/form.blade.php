@@ -63,7 +63,7 @@
 
                 <div class="row" style="margin-top:24px">
                     <div class="col-lg-6">
-                        @include('admin.partials.field', ['name' => 'notes', 'label' => trans('layout.notes'), 'type' => 'textarea', 'rows' => 5, 'value_' => $invoice->notes])
+                        @include('admin.partials.field', ['name' => 'notes', 'label' => trans('layout.notes'), 'type' => 'textarea', 'plain' => true, 'rows' => 5, 'value_' => $invoice->notes])
                     </div>
                     <div class="col-lg-6">
                         <table class="table" style="max-width:420px;margin-inline-start:auto">

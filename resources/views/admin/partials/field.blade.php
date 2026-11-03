@@ -9,7 +9,7 @@
                 @endforeach
             </select>
         @elseif (($type ?? 'text') === 'textarea')
-            <textarea name="{{ $name }}" id="f_{{ $name }}" class="form-control" rows="{{ $rows ?? 4 }}">{{ old($name, $value_) }}</textarea>
+            <textarea name="{{ $name }}" id="f_{{ $name }}" class="form-control" rows="{{ $rows ?? 4 }}" @if ($plain ?? false) data-plain @endif>{{ old($name, $value_) }}</textarea>
         @else
             <input type="{{ $type ?? 'text' }}" name="{{ $name }}" id="f_{{ $name }}" class="form-control" value="{{ old($name, $value_) }}" @isset($min) min="{{ $min }}" @endisset @isset($placeholder) placeholder="{{ $placeholder }}" @endisset>
         @endif

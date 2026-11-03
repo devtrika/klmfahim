@@ -43,6 +43,7 @@
                         @endforeach
                     </ul>
                     <p class="note" style="display:block">{{ __('front.estimate_note') }}</p>
+                    @include('front.partials.payments', ['compact' => true])
                 </aside>
             </div>
         @else
@@ -171,6 +172,7 @@
                         <li data-extras hidden><span>{{ __('front.lbl_extra') }}</span><span></span></li>
                     </ul>
                     <p class="note">{{ __('front.estimate_note') }}</p>
+                    @include('front.partials.payments', ['compact' => true])
                 </aside>
             </form>
         @endif

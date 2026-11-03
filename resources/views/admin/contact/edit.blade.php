@@ -82,7 +82,7 @@ if ($lang == "ar") {
                         <div class="form-group row">
                             <label for="input_5" class="col-sm-3 col-form-label">{{trans('interface.message_text')}}</label>
                             <div class="col-sm-9">
-                                {{ Form::textarea('message', $contact['message'], ['class'=>'form-control','id'=>'input_5','rows'=>10,'readonly']) }}
+                                {{ Form::textarea('message', $contact['message'], ['class'=>'form-control','id'=>'input_5','rows'=>10,'readonly','data-plain']) }}
                             </div>
                         </div>
 

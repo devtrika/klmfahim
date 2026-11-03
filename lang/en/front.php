@@ -144,4 +144,6 @@ return [
     'all_gov_services' => 'All government services',
     'bar_calculator' => 'Calculator',
     'made_by' => 'Designed & developed by',
+    'pay_title' => 'Secure online payments',
+    'pay_note' => 'Pay by card or Apple Pay, or split it into instalments with Tabby and Tamara.',
 ];
