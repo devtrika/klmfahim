@@ -55,3 +55,21 @@ Artisan::command('admin:create {--name=} {--email=} {--phone=} {--password=}', f
         $this->warn('Save this password now; it is not shown again. You can change it from the admin panel.');
     }
 })->purpose('Create an admin user in the top admin group');
+
+/*
+ * php artisan admin:password +971500000000 --password="new password"
+ */
+Artisan::command('admin:password {username} {--password=}', function () {
+    $user = User::where('username', $this->argument('username'))->orWhere('email', $this->argument('username'))->first();
+    if (! $user) {
+        return $this->error('No user with that username or email.');
+    }
+
+    $password = (string) $this->option('password');
+    if (strlen($password) < 8) {
+        return $this->error('Pass --password with at least 8 characters.');
+    }
+
+    $user->forceFill(['password' => Hash::make($password)])->save();
+    $this->info("Password updated for {$user->username}.");
+})->purpose("Set a new password for an existing admin");
