@@ -15,8 +15,8 @@
     <meta property="og:title" content="@yield('title', $site->{$lang.'_title'})">
     <meta property="og:description" content="@yield('description', $site->{$lang.'_footerword'})">
     <meta property="og:image" content="{{ asset('brand/logo.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('brand/mark.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('brand/mark.png') }}">
+    <link rel="icon" type="image/png" href="{{ $site->logoUrl() }}">
+    <link rel="apple-touch-icon" href="{{ $site->logoUrl() }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,15 +43,19 @@
         $headerPages = $cmsPages->where('dept', 'up');
         $pageUrl = fn ($p) => url($lang.'/page/'.$p->uuid.'/'.Str::slug($p->en_title));
         $onPage = fn ($p) => $path === 'page/'.$p->uuid || str_starts_with($path, 'page/'.$p->uuid.'/');
+        // The logo text stays English in both languages (site settings, English fields); last word bold.
+        $brandWords = explode(' ', trim($site->en_title ?: 'Call Fahim'));
+        $brandLast = array_pop($brandWords);
+        $brandName = ($brandWords ? e(implode(' ', $brandWords)).' ' : '').'<b>'.e($brandLast).'</b>';
     @endphp
 
     <header class="site-header" id="siteHeader">
         <div class="container header-inner">
             <a href="{{ url($lang) }}" class="brand" aria-label="{{ $site->{$lang.'_title'} }}">
-                <img src="{{ asset('brand/mark.png') }}" alt="" width="46" height="46">
+                <img src="{{ $site->logoUrl() }}" alt="" width="46" height="46">
                 <span class="brand-text">
-                    <span class="brand-name">Call <b>Fahim</b></span>
-                    <span class="brand-tag">Business Formation &amp; Setup</span>
+                    <span class="brand-name">{!! $brandName !!}</span>
+                    @if ($site->en_slogan)<span class="brand-tag">{{ $site->en_slogan }}</span>@endif
                 </span>
             </a>
 
@@ -93,8 +97,8 @@
         <aside class="drawer-panel">
             <div class="drawer-head">
                 <a href="{{ url($lang) }}" class="brand">
-                    <img src="{{ asset('brand/mark.png') }}" alt="" width="40" height="40">
-                    <span class="brand-text"><span class="brand-name">Call <b>Fahim</b></span></span>
+                    <img src="{{ $site->logoUrl() }}" alt="" width="40" height="40">
+                    <span class="brand-text"><span class="brand-name">{!! $brandName !!}</span></span>
                 </a>
                 <button class="menu-toggle" style="display:inline-flex" type="button" data-drawer-close aria-label="close">
                     <i class="fa-solid fa-xmark"></i>
@@ -125,7 +129,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <img class="footer-logo" src="{{ asset('brand/logo-light.png') }}" alt="{{ $site->{$lang.'_title'} }}" loading="lazy">
+                    <img class="footer-logo" src="{{ $site->footerLogoUrl() }}" alt="{{ $site->{$lang.'_title'} }}" loading="lazy">
                     <p>{{ $site->{$lang.'_footerword'} }}</p>
                     <div class="socials">
                         @foreach (['facebook' => 'facebook-f', 'instagram' => 'instagram', 'linkedin' => 'linkedin-in', 'twitter' => 'x-twitter', 'youtube' => 'youtube'] as $field => $icon)

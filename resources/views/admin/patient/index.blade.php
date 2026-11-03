@@ -60,7 +60,7 @@ if ($lang == "ar") {
                                 <td>{{$page['id']}}</td>
                                 <td>{{$page['ar_name']}}</td> 
                                 <td>{{$page['en_name']}}</td>
-                                <td>{{$page['phone']}}</td>        
+                                <td dir="ltr" class="cf-ltr">{{$page['phone']}}</td>        
                                 <td>{{$page['address']}}</td>    
                                 <td>
                                     {{ Form::open(array('url' =>'trika/patient/'.$page->uuid.'/edit', 'method' => 'GET')) }}

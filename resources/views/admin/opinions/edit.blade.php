@@ -79,12 +79,14 @@ if ($lang == "ar") {
                                 @endif
                             </div>
                         </div>
+                        @if ($client['image'])
                         <div class="form-group row">
                             <label for="input_3" class="col-sm-3 col-form-label">{{trans('layout.current_image')}}</label>
                             <div class="col-sm-9">
                                 <img  style="height: 140px" src="{{URL::to('upload/opinions/'.$client['image'])}}" class="img-thumbnail">
                             </div>
                         </div>
+                        @endif
                         <div class="form-group row">
                             <label for="input_1" class="col-sm-3 col-form-label">{{trans('layout.ar_opinion')}}</label>
                             <div class="col-sm-9">

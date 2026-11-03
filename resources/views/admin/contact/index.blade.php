@@ -56,7 +56,7 @@ if ($lang == "ar") {
                             <tr>
                                 <td>{{$i}}</td>
                                 <td>{{$contact['name']}}</td>
-                                <td>{{$contact['phone']}}</td>
+                                <td dir="ltr" class="cf-ltr">{{$contact['phone']}}</td>
                                 <td>{{$contact['title']}}</td>
                                 <td>
                                     @if($contact['seen'] == "yes" && $contact['reply'] != "")

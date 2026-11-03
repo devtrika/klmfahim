@@ -200,7 +200,7 @@ html[dir="rtl"] .drawer-panel { transform: translateX(-24px); }
 .price-line small { color: var(--muted); }
 .price { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 2rem; color: var(--ink); letter-spacing: -.02em; }
 .price { display: inline-flex; align-items: baseline; gap: 6px; direction: ltr; }
-.price .cur { font-size: .9rem; color: var(--copper-deep); font-weight: 700; }
+.price .cur { margin-inline-start: 5px; font-size: .9rem; color: var(--copper-deep); font-weight: 700; }
 
 /* Stats */
 .stats { position: relative; z-index: 2; margin-top: -44px; }
@@ -319,9 +319,11 @@ html[dir="rtl"] .step::after { background: linear-gradient(-90deg, var(--copper)
 
 /* Testimonials & posts */
 .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.quote { padding: 28px; border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 18px; }
+.quote { margin: 0; padding: 28px; border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 18px; }
 .quote i.fa-quote-right, .quote i.fa-quote-left { color: var(--copper-2); font-size: 1.6rem; }
-.quote-body { color: var(--ink-3); flex: 1; }
+.quote-body { color: var(--ink-3); flex: 1; margin: 0; }
+.quote-top { display: flex; align-items: center; justify-content: space-between; }
+.quote .stars { display: inline-flex; gap: 3px; color: #e0a43a; font-size: .85rem; }
 .quote-who { display: flex; align-items: center; gap: 12px; }
 .quote-who img, .quote-who .av { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--copper-3); display: grid; place-items: center; font-weight: 700; color: var(--copper-deep); }
 .post { border-radius: var(--radius); overflow: hidden; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform .25s ease, box-shadow .25s ease; }
@@ -676,7 +678,6 @@ a.contact-item:hover { border-color: var(--copper); }
 }
 /* Long emails / numbers wrap instead of pushing cards off screen */
 .contact-item > span { min-width: 0; overflow-wrap: anywhere; }
-@media (max-width: 1499px) { .brand-tag { display: none; } }
 @media (max-width: 1279px) {
     .main-nav, .header-actions .lang-switch { display: none; }
     .menu-toggle { display: inline-flex; }
@@ -685,3 +686,17 @@ a.contact-item:hover { border-color: var(--copper); }
 }
 @media (max-width: 640px) { .brand-tag { display: none; } }
 @media (min-width: 1500px) { .header-inner { max-width: 1440px; } }
+.brand-text { min-width: 0; direction: ltr; text-align: start; }
+html[dir="rtl"] .brand-text { text-align: right; }
+.brand-tag { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 640px) {
+    .brand-tag { display: block; font-size: .56rem; letter-spacing: .08em; }
+    .brand { min-width: 0; }
+}
+@media (min-width: 1280px) and (max-width: 1499px) { .brand-tag { font-size: .58rem; letter-spacing: .08em; }  }
+/* Testimonials swipe sideways on phones instead of stacking six tall cards */
+@media (max-width: 640px) {
+    .quotes-row { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -16px; padding: 4px 16px 12px; scrollbar-width: none; }
+    .quotes-row::-webkit-scrollbar { display: none; }
+    .quotes-row > .quote { flex: 0 0 84%; scroll-snap-align: center; }
+}

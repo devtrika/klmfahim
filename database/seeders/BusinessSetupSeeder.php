@@ -25,6 +25,7 @@ class BusinessSetupSeeder extends Seeder
         $this->features();
         $this->calculator();
         $this->partners();
+        $this->opinions();
         $this->posts();
         $this->pages();
         $this->permissions();
@@ -34,7 +35,7 @@ class BusinessSetupSeeder extends Seeder
     /** Rows inserted with DB::table() skip model events, so give them a uuid here. */
     private function fillUuids(): void
     {
-        foreach (['services', 'clients'] as $table) {
+        foreach (['services', 'clients', 'opinions'] as $table) {
             DB::table($table)->whereNull('uuid')->pluck('id')->each(
                 fn ($id) => DB::table($table)->where('id', $id)->update(['uuid' => (string) \Illuminate\Support\Str::uuid()])
             );
@@ -63,6 +64,14 @@ class BusinessSetupSeeder extends Seeder
         }
         if ($blank) {
             DB::table('site')->where('id', $site->id)->update($blank);
+        }
+
+        // The header/footer logos come from the settings; until one is uploaded
+        // (or while they still hold the original wide logo) use the brand files.
+        foreach (['logo' => 'brand/mark.png', 'footer' => 'brand/logo-light.png'] as $field => $default) {
+            if (blank($site->$field) || str_ends_with($site->$field, '.callFahim.png') || ! is_file(public_path($site->$field))) {
+                DB::table('site')->where('id', $site->id)->update([$field => $default]);
+            }
         }
 
         // First run only: after that the site settings belong to the admin panel.
@@ -261,6 +270,43 @@ class BusinessSetupSeeder extends Seeder
     }
 
     /** About / privacy / terms pages, first run only. "up" pages show in the header, "down" in the footer. */
+    /** Sample testimonials, only while the table is empty — edit or replace them from the admin. */
+    private function opinions(): void
+    {
+        if (DB::table('opinions')->exists()) {
+            return;
+        }
+
+        $rows = [
+            ['أحمد المنصوري', 'Ahmed Al Mansouri',
+                'خدمة ممتازة من أول مكالمة. الأستاذ إسلام تعامل معانا كأخ وكان بيحاول يساعدنا في كل مشكلة لحد ما الرخصة طلعت.',
+                'Excellent service from the very first call. Mr. Islam treated us like a brother and helped us through every problem until our licence was issued.'],
+            ['James Whitmore', 'James Whitmore',
+                'أسست شركتي في منطقة حرة بدون ما أسافر دبي ولا مرة. كل خطوة كانت واضحة والتكلفة زي ما اتقالت بالظبط.',
+                'I set up my free zone company without flying to Dubai once. Every step was clear and the final cost matched the quote exactly.'],
+            ['محمد عبد الرحمن', 'Mohamed Abdelrahman',
+                'كنت قلقان من موضوع الإقامة والفيزا لعيلتي، لكن فريق كلم فهيم خلص كل الورق في وقت قياسي. شكراً أستاذ إسلام على المتابعة اليومية.',
+                'I was worried about residency visas for my family, but the Call Fahim team finished all the paperwork in record time. Thank you Mr. Islam for the daily follow-up.'],
+            ['Elena Petrova', 'Elena Petrova',
+                'تعامل احترافي وسرعة في الرد على الواتساب. ساعدونا في فتح الحساب البنكي وده كان أصعب جزء.',
+                'Professional and quick to answer on WhatsApp. They helped us open our corporate bank account, which was the hardest part.'],
+            ['سارة الحمادي', 'Sara Al Hammadi',
+                'نقلنا رخصتنا من البر الرئيسي وجددنا كل المعاملات الحكومية من غير ما نروح أي مركز. خدمة تستاهل كل درهم.',
+                'We moved our mainland licence and renewed all our government transactions without visiting a single centre. Worth every dirham.'],
+            ['Rahul Mehta', 'Rahul Mehta',
+                'نصحوني بالكيان الأنسب لنشاطي ووفروا عليّ مصاريف كنت هدفعها على الفاضي. أنصح بيهم أي حد عاوز يبدأ في الإمارات.',
+                'They advised the right entity for my activity and saved me costs I would have paid for nothing. I recommend them to anyone starting in the UAE.'],
+        ];
+
+        foreach ($rows as $i => [$arName, $enName, $ar, $en]) {
+            DB::table('opinions')->insert([
+                'ar_title' => $arName, 'en_title' => $enName, 'image' => '', 'href' => null,
+                'ar_desc' => $ar, 'en_desc' => $en,
+                'created_at' => now()->subDays(count($rows) - $i), 'updated_at' => now(),
+            ]);
+        }
+    }
+
     private function pages(): void
     {
         if (DB::table('pages')->exists()) {

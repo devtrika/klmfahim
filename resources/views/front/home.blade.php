@@ -209,13 +209,16 @@
             <span class="eyebrow">{{ __('front.testimonials_eyebrow') }}</span>
             <h2>{{ __('front.testimonials_title') }}</h2>
         </div>
-        <div class="cards-3">
+        <div class="cards-3 quotes-row">
             @foreach ($opinions as $o)
                 <figure class="quote reveal">
-                    <i class="fa-solid fa-quote-{{ $lang === 'ar' ? 'right' : 'left' }}"></i>
+                    <div class="quote-top">
+                        <i class="fa-solid fa-quote-{{ $lang === 'ar' ? 'right' : 'left' }}"></i>
+                        <span class="stars" aria-label="5/5">@for ($s = 0; $s < 5; $s++)<i class="fa-solid fa-star"></i>@endfor</span>
+                    </div>
                     <blockquote class="quote-body">{!! strip_tags($o->{$lang.'_desc'}) !!}</blockquote>
                     <figcaption class="quote-who">
-                        @if ($o->image)
+                        @if ($o->image && is_file(public_path('upload/opinions/'.$o->image)))
                             <img src="{{ asset('upload/opinions/'.$o->image) }}" alt="" loading="lazy">
                         @else
                             <span class="av">{{ Str::substr($o->{$lang.'_title'}, 0, 1) }}</span>

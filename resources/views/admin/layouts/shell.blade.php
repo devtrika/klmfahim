@@ -18,7 +18,7 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#1d1d1f">
     <title>@hasSection('title')@yield('title') · @endif{{ trans('layout.admin') }} · {{ $site->{$lang.'_title'} }}</title>
-    <link rel="icon" type="image/png" href="{{ asset('brand/mark.png') }}">
+    <link rel="icon" type="image/png" href="{{ $site->logoUrl() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -33,8 +33,8 @@
 <body class="cf-admin">
     <aside class="cf-side" id="cfSide">
         <a class="cf-brand" href="{{ URL::to('trika') }}">
-            <img src="{{ asset('brand/mark.png') }}" alt="">
-            <span><b>Call Fahim</b><small>{{ trans('layout.admin') }}</small></span>
+            <img src="{{ $site->logoUrl() }}" alt="">
+            <span><b>{{ $site->en_title }}</b><small>{{ trans('layout.admin') }}</small></span>
         </a>
 
         <nav class="cf-nav" aria-label="admin">
@@ -131,6 +131,25 @@
         document.addEventListener('click', function (e) {
             var x = e.target.closest('[data-dismiss="alert"]');
             if (x) { var a = x.closest('.alert'); if (a) a.remove(); }
+        });
+
+        // Phones: list rows become labelled cards (labels taken from the table head)
+        document.querySelectorAll('.cf-content table.table').forEach(function (t) {
+            if (t.matches('#itemsTable, .perm-matrix') || !t.tHead || !t.tHead.rows.length) return;
+            var heads = [].map.call(t.tHead.rows[0].cells, function (th) { return th.textContent.trim(); });
+            t.classList.add('cf-cards');
+            [].forEach.call(t.tBodies, function (b) {
+                [].forEach.call(b.rows, function (tr) {
+                    [].forEach.call(tr.cells, function (td, i) {
+                        if (!heads[i]) return;
+                        td.setAttribute('data-label', heads[i]);
+                        var val = document.createElement('div');
+                        val.className = 'cf-val';
+                        while (td.firstChild) val.appendChild(td.firstChild);
+                        td.appendChild(val);
+                    });
+                });
+            });
         });
 
         // Data tables: search + paging, newest first is up to each table's order

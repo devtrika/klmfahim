@@ -551,4 +551,6 @@ return [
     'empty_types' => 'This fills in once requests arrive.',
     'empty_invoices' => 'No invoices yet.',
     'empty_messages' => 'No new messages.',
+    'logo_hint' => 'Square icon shown in the header next to the site name and slogan, in the admin and as the browser icon.',
+    'logofooter_hint' => 'Light logo shown on the dark footer and the admin login page.',
 ];

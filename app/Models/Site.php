@@ -33,6 +33,33 @@ class Site extends Model {
         return $site ??= static::query()->first() ?? (new static)->forceFill(static::DEFAULTS);
     }
 
+    /** Square mark used in the header, admin and favicon. */
+    public function logoUrl(): string
+    {
+        return $this->fileUrl('logo', 'brand/mark.png');
+    }
+
+    /** Light logo shown on dark backgrounds (footer, admin login). */
+    public function footerLogoUrl(): string
+    {
+        return $this->fileUrl('footer', 'brand/logo-light.png');
+    }
+
+    private function fileUrl(string $field, string $fallback): string
+    {
+        $file = $this->$field;
+
+        return asset($file && is_file(public_path($file)) ? $file : $fallback).'?v='.substr(md5((string) $file), 0, 6);
+    }
+
+    /** Uploads live in public/; the bundled brand files are never deleted. */
+    private function dropFile(?string $file): void
+    {
+        if ($file && ! str_starts_with($file, 'brand/')) {
+            File::delete(public_path($file));
+        }
+    }
+
     //
     public function getData() {
         return $this->first();
@@ -77,40 +104,28 @@ class Site extends Model {
             }
         }
         if ($logo) {
-            $path = public_path('upload/');
-            $filename = $site->logo;
-            File::Delete($path . $filename);
+            $this->dropFile($site->logo);
             $site->logo = $logo;
         }
         if ($video) {
-            $path = public_path('upload/');
-            $filename = $site->video;
-            File::Delete($path . $filename);
+            $this->dropFile($site->video);
             $site->video = $video;
         }
         
         if ($first) {
-            $path = public_path('upload/');
-            $filename = $site->first;
-            File::Delete($path . $filename);
+            $this->dropFile($site->first);
             $site->first = $first;
         }
         if ($second) {
-            $path = public_path('upload/');
-            $filename = $site->second;
-            File::Delete($path . $filename);
+            $this->dropFile($site->second);
             $site->second = $second;
         }
         if ($third) {
-            $path = public_path('upload/');
-            $filename = $site->third;
-            File::Delete($path . $filename);
+            $this->dropFile($site->third);
             $site->third = $third;
         }
         if ($footer) {
-            $path = public_path('upload/');
-            $filename = $site->$footer;
-            File::Delete($path . $filename);
+            $this->dropFile($site->footer);
             $site->footer = $footer;
         }
         return $site->save();

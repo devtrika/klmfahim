@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>{{ $site->{$lang.'_title'} }} · {{ trans('layout.admin') }}</title>
-    <link rel="icon" type="image/png" href="{{ asset('brand/mark.png') }}">
+    <link rel="icon" type="image/png" href="{{ $site->logoUrl() }}">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('admin_panel/vendor/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_panel/vendor/fontawesome/css/font-awesome.min.css') }}">

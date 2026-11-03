@@ -48,10 +48,10 @@
                     <tbody>
                         @foreach ($rows as $i => $row)
                             <tr data-item>
-                                <td><input class="form-control" name="items[{{ $i }}][description]" value="{{ $row['description'] }}" required></td>
-                                <td><input class="form-control" type="number" step="0.01" min="0.01" name="items[{{ $i }}][quantity]" value="{{ $row['quantity'] + 0 }}" data-qty required></td>
-                                <td><input class="form-control" type="number" step="0.01" min="0" name="items[{{ $i }}][unit_price]" value="{{ $row['unit_price'] + 0 }}" data-price required></td>
-                                <td dir="ltr" style="vertical-align:middle" data-line>0.00</td>
+                                <td data-label="{{ trans('layout.item_description') }}"><input class="form-control" name="items[{{ $i }}][description]" value="{{ $row['description'] }}" required></td>
+                                <td data-label="{{ trans('layout.quantity') }}"><input class="form-control" type="number" step="0.01" min="0.01" name="items[{{ $i }}][quantity]" value="{{ $row['quantity'] + 0 }}" data-qty required></td>
+                                <td data-label="{{ trans('layout.unit_price') }}"><input class="form-control" type="number" step="0.01" min="0" name="items[{{ $i }}][unit_price]" value="{{ $row['unit_price'] + 0 }}" data-price required></td>
+                                <td dir="ltr" style="vertical-align:middle" data-label="{{ trans('layout.line_total') }}" data-line>0.00</td>
                                 <td><button type="button" class="btn btn-sm btn-danger" data-remove><i class="fa fa-times"></i></button></td>
                             </tr>
                         @endforeach
@@ -88,10 +88,10 @@
 
 <template id="itemRow">
     <tr data-item>
-        <td><input class="form-control" data-name="description" required></td>
-        <td><input class="form-control" type="number" step="0.01" min="0.01" value="1" data-name="quantity" data-qty required></td>
-        <td><input class="form-control" type="number" step="0.01" min="0" value="0" data-name="unit_price" data-price required></td>
-        <td dir="ltr" style="vertical-align:middle" data-line>0.00</td>
+        <td data-label="{{ trans('layout.item_description') }}"><input class="form-control" data-name="description" required></td>
+        <td data-label="{{ trans('layout.quantity') }}"><input class="form-control" type="number" step="0.01" min="0.01" value="1" data-name="quantity" data-qty required></td>
+        <td data-label="{{ trans('layout.unit_price') }}"><input class="form-control" type="number" step="0.01" min="0" value="0" data-name="unit_price" data-price required></td>
+        <td dir="ltr" style="vertical-align:middle" data-label="{{ trans('layout.line_total') }}" data-line>0.00</td>
         <td><button type="button" class="btn btn-sm btn-danger" data-remove><i class="fa fa-times"></i></button></td>
     </tr>
 </template>

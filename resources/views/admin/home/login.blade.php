@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#1d1d1f">
     <title>{{ trans('layout.login') }} · {{ $site->{$lang.'_title'} }}</title>
-    <link rel="icon" type="image/png" href="{{ asset('brand/mark.png') }}">
+    <link rel="icon" type="image/png" href="{{ $site->logoUrl() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -88,9 +88,9 @@
 <body>
     <main class="auth">
         <section class="brand" aria-hidden="true">
-            <img src="{{ asset('brand/logo-light.png') }}" alt="">
+            <img src="{{ $site->footerLogoUrl() }}" alt="">
             <div>
-                <h1>{!! $lang === 'ar' ? 'لوحة تحكم <span>كلم فهيم</span>' : 'The <span>Call Fahim</span> control panel' !!}</h1>
+                <h1>{!! $lang === 'ar' ? 'لوحة تحكم <span>'.e($site->ar_title).'</span>' : 'The <span>'.e($site->en_title).'</span> control panel' !!}</h1>
                 <p>{{ $site->{$lang.'_slogan'} }}</p>
             </div>
             <small>© {{ date('Y') }} {{ $site->{$lang.'_title'} }}</small>
@@ -98,7 +98,7 @@
 
         <section class="panel">
             <div class="card">
-                <img class="mark" src="{{ asset('brand/mark.png') }}" alt="{{ $site->{$lang.'_title'} }}">
+                <img class="mark" src="{{ $site->logoUrl() }}" alt="{{ $site->{$lang.'_title'} }}">
                 <h2>{{ trans('layout.login') }}</h2>
                 <p class="sub">{{ trans('layout.sign_in') }}</p>
 

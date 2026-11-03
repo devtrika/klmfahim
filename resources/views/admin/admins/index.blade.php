@@ -56,8 +56,8 @@ if ($lang == "ar") {
                             @foreach($admins as $user)
                             <tr>
                                 <td>{{$user['name']}}</td>
-                                <td>{{$user['username']}}</td>
-                                <td>{{$user['phone']}}</td>
+                                <td dir="ltr" class="cf-ltr">{{$user['username']}}</td>
+                                <td dir="ltr" class="cf-ltr">{{$user['phone']}}</td>
                                 <!--<td>{{$user['Group'][$lang.'_name']}}</td>-->
                                 <td>
                                     @if($user['active'] == "yes")

@@ -54,7 +54,7 @@ if ($lang == "ar") {
                             <tr>
                                 <td>{{$i}}</td>
                                 <td>{{$contact['name']}}</td>
-                                <td>{{$contact['phone']}}</td>
+                                <td dir="ltr" class="cf-ltr">{{$contact['phone']}}</td>
                                 <td>
                                     {{ Form::open(array('url' =>'trika/booking/'.$contact->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.show')}} </button>

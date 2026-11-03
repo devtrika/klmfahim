@@ -23,7 +23,7 @@ class HomeController extends Controller
             'features' => Feature::orderBy('sort')->get(),
             'government' => Service::where('category', 'government')->orderBy('sort')->limit(8)->get(),
             'services' => Service::where('category', '!=', 'government')->orderBy('sort')->get(),
-            'opinions' => Opinon::latest()->limit(3)->get(),
+            'opinions' => Opinon::latest()->limit(6)->get(),
             'posts' => Blog::where('active', 'yes')->latest()->limit(3)->get(),
         ]);
     }

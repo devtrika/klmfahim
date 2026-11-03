@@ -163,7 +163,6 @@ input[type=checkbox], input[type=radio] { accent-color: var(--copper); }
 .table-hover > tbody > tr:hover { background: #fdfaf8; }
 .table-responsive { display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .box-body > .table-responsive, .box-body > table { margin: -20px; width: calc(100% + 40px); max-width: none; }
-.box-body > table.table-responsive { display: block; }
 .dataTables_wrapper { padding: 0; }
 .dataTables_wrapper .cf-dt-top, .dataTables_wrapper .cf-dt-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 0 0 14px; }
 .dataTables_wrapper .cf-dt-bottom { padding: 14px 0 0; }
@@ -253,7 +252,7 @@ html[dir="rtl"] .cf-bar-row .track span { background: linear-gradient(-90deg, va
     .cf-main { margin-inline-start: 0; }
     .cf-menu-btn { display: grid; }
     .cf-top { padding: 0 14px; }
-    .cf-content { padding: 18px 14px 40px; }
+    .cf-content { padding: 18px 15px 40px; }
     .cf-foot { padding: 14px; }
     .cf-pill .txt { display: none; }
     .cf-pill { width: 38px; padding: 0; justify-content: center; }
@@ -284,3 +283,54 @@ html[dir="rtl"] .cf-bar-row .track span { background: linear-gradient(-90deg, va
     .box-body .form-group.row > .col-form-label { padding-bottom: 4px; }
 }
 .cf-content video, .cf-content img, .cf-content iframe { max-width: 100%; height: auto; }
+
+/* Old list views put .table-responsive on the <table> itself; keep it a real
+   full-width table and let the wrapper scroll instead. */
+.cf-content table.table, .cf-content table.table.table-responsive { display: table; width: 100% !important; }
+.dataTables_wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* Phone numbers / usernames read left-to-right but stay aligned with the column. */
+html[dir="rtl"] td.cf-ltr { text-align: right; }
+
+/* Phones: each list row is a card, every cell labelled from the table head. */
+@media (max-width: 575px) {
+    .box-body:has(> table.cf-cards), .dataTables_wrapper:has(table.cf-cards) { overflow: visible; }
+    .cf-content table.cf-cards, table.cf-cards > tbody, table.cf-cards > tbody > tr, table.cf-cards > tbody > tr > td { display: block; width: 100% !important; min-width: 0 !important; }
+    .box-body > table.cf-cards { margin: 0; }
+    table.cf-cards > thead { display: none; }
+    table.cf-cards > tbody > tr { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 4px 14px; margin-bottom: 10px; }
+    table.cf-cards > tbody > tr:hover { background: var(--card); }
+    table.cf-cards > tbody > tr > td { display: flex; align-items: center; justify-content: space-between; gap: 6px 12px; border: 0; border-top: 1px dashed var(--line); padding: 10px 0; text-align: end; overflow-wrap: anywhere; }
+    table.cf-cards > tbody > tr > td:first-child { border-top: 0; }
+    table.cf-cards > tbody > tr > td[data-label]::before { content: attr(data-label); color: var(--muted); font-size: 12px; font-weight: 600; text-align: start; max-width: 45%; }
+    html[dir="rtl"] table.cf-cards > tbody > tr > td[dir="ltr"] { flex-direction: row-reverse; }
+    html[dir="rtl"] table.cf-cards > tbody > tr > td[dir="ltr"] .cf-val { align-items: flex-start; }
+    table.cf-cards > tbody > tr > td:not([data-label]), table.cf-cards td.dataTables_empty { justify-content: center; text-align: center; }
+    table.cf-cards td form { display: inline-block; margin: 0; }
+    table.cf-cards .cf-val { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    table.cf-cards .cf-val:has(> form, > a.btn, > .btn) { flex-direction: row; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 6px; }
+    table.cf-cards > tbody > tr > td[data-label]::before { flex-shrink: 0; }
+    table.cf-cards td img { max-height: 56px; width: auto; }
+}
+/* Mixed Arabic/English cell text keeps its own direction (e.g. "100% ownership") */
+.cf-content td small, .cf-content td .cf-val > * { unicode-bidi: plaintext; }
+
+/* Phones: invoice lines as small cards (description, then qty | price, then total | remove) */
+@media (max-width: 575px) {
+    .cf-scroll:has(#itemsTable) { overflow: visible; }
+    #itemsTable { min-width: 0; }
+    #itemsTable thead { display: none; }
+    #itemsTable, #itemsTable tbody { display: block; }
+    #itemsTable tr[data-item] { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; margin-bottom: 10px; border: 1px solid var(--line); border-radius: 12px; }
+    #itemsTable tr[data-item] > td { display: block; border: 0; padding: 0; }
+    #itemsTable tr[data-item] > td:first-child { grid-column: 1 / -1; }
+    #itemsTable tr[data-item] > td[data-label]::before { content: attr(data-label); display: block; color: var(--muted); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+    #itemsTable tr[data-item] > td[data-line] { direction: inherit; font-weight: 700; align-self: center; }
+    #itemsTable tr[data-item] > td:last-child { align-self: end; justify-self: end; }
+    /* Permission matrix fits a phone: tighter cells instead of side scrolling */
+    .box-body > .table.perm-matrix, .perm-matrix { min-width: 0; }
+    .perm-matrix th, .perm-matrix td { padding: 9px 6px !important; font-size: 13px; }
+    .perm-matrix th { letter-spacing: 0; font-size: 11px; }
+}
+/* Tables sit inside the card padding (the old edge-to-edge negative margin
+   shifted them sideways once width is forced to 100%). */
+.cf-content .box-body > table.table { margin: 0 !important; }

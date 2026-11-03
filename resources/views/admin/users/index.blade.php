@@ -56,9 +56,9 @@ if ($lang == "ar") {
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->username }}</td>
+                                <td dir="ltr" class="cf-ltr">{{ $user->username }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
+                                <td dir="ltr" class="cf-ltr">{{ $user->phone }}</td>
                                 <td>
                                     {{ Form::open(array('url' =>'trika/users/'.$user->uuid.'/edit', 'method' => 'GET')) }}
                                     <button  type="submit" class="btn default btn-sm btn-info"><i class="fa fa-edit"></i> {{trans('layout.edit')}} </button>

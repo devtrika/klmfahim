@@ -285,7 +285,8 @@ if ($lang == "ar") {
                                 @if($errors->has('logo'))
                                 <div class="alert alert-danger">{{$errors->first('logo')}}</div>
                                 @endif
-                                <img style="height: 120px" src="{{URL::to('/'.$site['logo'])}}" class="img-thumbnail">
+                                <small class="form-text text-muted">{{ trans('layout.logo_hint') }}</small>
+                                <img style="height: 120px" src="{{ $site->logoUrl() }}" class="img-thumbnail mt-2">
 
                             </div>
                             <label for="input_3" class="col-sm-2 col-form-label">{{trans('layout.logofooter')}}</label>
@@ -294,7 +295,8 @@ if ($lang == "ar") {
                                 @if($errors->has('footer'))
                                 <div class="alert alert-danger">{{$errors->first('footer')}}</div>
                                 @endif
-                                <img style="height: 120px" src="{{URL::to('/'.$site['footer'])}}" class="img-thumbnail">
+                                <small class="form-text text-muted">{{ trans('layout.logofooter_hint') }}</small>
+                                <img style="height: 120px;background:#1d1d1f" src="{{ $site->footerLogoUrl() }}" class="img-thumbnail mt-2">
 
                             </div>
                         </div>
