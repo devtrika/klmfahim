@@ -81,6 +81,7 @@ return [
     'shareholders_count' => 'عدد الشركاء',
     'extras_optional' => 'اختياري — تقدر تتخطى الخطوة دي',
     'next' => 'التالي',
+    'previous' => 'السابق',
     'back' => 'رجوع',
     'get_quote' => 'ابعتلي العرض',
     'your_estimate' => 'التكلفة التقديرية',

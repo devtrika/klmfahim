@@ -176,4 +176,56 @@
             });
         });
     });
+    // Sliders: arrows, dots (one per page of cards) and a slow autoplay that pauses on interaction
+    $$('[data-slider]').forEach(function (slider) {
+        var track = $('[data-slider-track]', slider);
+        var prev = $('[data-slider-prev]', slider);
+        var next = $('[data-slider-next]', slider);
+        var dotsBox = $('[data-slider-dots]', slider);
+        var nav = $('.slider-nav', slider);
+        var rtl = getComputedStyle(track).direction === 'rtl';
+        var timer = null;
+        var items = track.children;
+        var step = function () { return items.length > 1 ? Math.abs(items[1].offsetLeft - items[0].offsetLeft) : track.clientWidth; };
+        var perView = function () { return Math.max(1, Math.round(track.clientWidth / step())); };
+        var pages = function () { return Math.max(1, items.length - perView() + 1); };
+        var pos = function () { return Math.round(Math.abs(track.scrollLeft) / step()); };
+        var go = function (i) { track.scrollTo({ left: (rtl ? -1 : 1) * i * step() }); };
+
+        var build = function () {
+            dotsBox.innerHTML = '';
+            for (var i = 0; i < pages(); i++) {
+                var d = doc.createElement('button');
+                d.type = 'button';
+                d.setAttribute('aria-label', String(i + 1));
+                d.addEventListener('click', go.bind(null, i));
+                dotsBox.appendChild(d);
+            }
+            nav.hidden = pages() < 2;
+            update();
+        };
+        var update = function () {
+            var p = Math.min(pos(), pages() - 1);
+            $$('button', dotsBox).forEach(function (d, i) { d.classList.toggle('is-active', i === p); });
+            prev.disabled = p <= 0;
+            next.disabled = p >= pages() - 1;
+        };
+
+        prev.addEventListener('click', function () { go(pos() - 1); });
+        next.addEventListener('click', function () { go(pos() + 1); });
+        track.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', build);
+
+        var stop = function () { clearInterval(timer); timer = null; };
+        var start = function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            stop();
+            timer = setInterval(function () { go(pos() >= pages() - 1 ? 0 : pos() + 1); }, 6000);
+        };
+        ['mouseenter', 'touchstart', 'focusin'].forEach(function (e) { slider.addEventListener(e, stop, { passive: true }); });
+        slider.addEventListener('mouseleave', start);
+
+        build();
+        start();
+    });
 })();

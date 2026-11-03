@@ -694,9 +694,21 @@ html[dir="rtl"] .brand-text { text-align: right; }
     .brand { min-width: 0; }
 }
 @media (min-width: 1280px) and (max-width: 1499px) { .brand-tag { font-size: .58rem; letter-spacing: .08em; }  }
-/* Testimonials swipe sideways on phones instead of stacking six tall cards */
+/* Slider (testimonials): 3 per view on desktop, 2 on tablets, 1 on phones */
+.slider-track { --per: 3; --gap: 22px; display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 4px 2px 8px; }
+.slider-track::-webkit-scrollbar { display: none; }
+.slider-track > * { flex: 0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per)); scroll-snap-align: start; min-width: 0; }
+.slider-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 22px; }
+.slider-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background .2s, color .2s, opacity .2s; }
+.slider-btn:hover:not(:disabled) { background: var(--ink); color: #fff; }
+.slider-btn:disabled { opacity: .35; cursor: default; }
+.slider-dots { display: flex; gap: 8px; }
+.slider-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: var(--line); cursor: pointer; transition: width .25s, background .25s; }
+.slider-dots button.is-active { width: 24px; background: var(--copper); }
+.slider-nav[hidden] { display: none; }
+@media (max-width: 991px) { .slider-track { --per: 2; --gap: 16px; } }
 @media (max-width: 640px) {
-    .quotes-row { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -16px; padding: 4px 16px 12px; scrollbar-width: none; }
-    .quotes-row::-webkit-scrollbar { display: none; }
-    .quotes-row > .quote { flex: 0 0 84%; scroll-snap-align: center; }
+    .slider-track { --per: 1; --gap: 14px; margin-inline: -16px; padding-inline: 16px; scroll-padding-inline: 16px; }
+    .slider-track > * { flex-basis: 86%; }
 }
+@media (prefers-reduced-motion: reduce) { .slider-track { scroll-behavior: auto; } }

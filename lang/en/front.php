@@ -81,6 +81,7 @@ return [
     'shareholders_count' => 'Number of shareholders',
     'extras_optional' => 'Optional — feel free to skip',
     'next' => 'Next',
+    'previous' => 'Previous',
     'back' => 'Back',
     'get_quote' => 'Send me the quote',
     'your_estimate' => 'Estimated cost',

@@ -209,7 +209,8 @@
             <span class="eyebrow">{{ __('front.testimonials_eyebrow') }}</span>
             <h2>{{ __('front.testimonials_title') }}</h2>
         </div>
-        <div class="cards-3 quotes-row">
+        <div class="slider" data-slider>
+        <div class="slider-track quotes-row" data-slider-track>
             @foreach ($opinions as $o)
                 <figure class="quote reveal">
                     <div class="quote-top">
@@ -227,6 +228,12 @@
                     </figcaption>
                 </figure>
             @endforeach
+        </div>
+        <div class="slider-nav">
+            <button type="button" class="slider-btn" data-slider-prev aria-label="{{ __('front.previous') }}"><i class="fa-solid fa-arrow-left icon-flip"></i></button>
+            <div class="slider-dots" data-slider-dots></div>
+            <button type="button" class="slider-btn" data-slider-next aria-label="{{ __('front.next') }}"><i class="fa-solid fa-arrow-right icon-flip"></i></button>
+        </div>
         </div>
     </div>
 </section>
