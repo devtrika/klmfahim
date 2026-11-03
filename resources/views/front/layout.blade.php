@@ -38,6 +38,11 @@
             ['contact', 'front.contact', 'fa-envelope'],
         ];
         $phone = $site->mobile ?: $site->phone;
+        // CMS pages: "up" ones go in the header, "up" and "down" ones in the footer.
+        $cmsPages = \App\Models\Page::whereIn('dept', ['up', 'down'])->orderBy('id')->get(['id', 'uuid', 'dept', 'ar_title', 'en_title']);
+        $headerPages = $cmsPages->where('dept', 'up');
+        $pageUrl = fn ($p) => url($lang.'/page/'.$p->uuid.'/'.Str::slug($p->en_title));
+        $onPage = fn ($p) => $path === 'page/'.$p->uuid || str_starts_with($path, 'page/'.$p->uuid.'/');
     @endphp
 
     <header class="site-header" id="siteHeader">
@@ -53,12 +58,25 @@
             <nav class="main-nav" aria-label="{{ __('front.menu') }}">
                 @foreach ($nav as [$href, $label])
                     <a href="{{ url($lang.($href ? '/'.$href : '')) }}" @class(['is-active' => $active($href)])>{{ __($label) }}</a>
+                    @if ($href === '' && $headerPages->count() === 1)
+                        @php $p = $headerPages->first(); @endphp
+                        <a href="{{ $pageUrl($p) }}" @class(['is-active' => $onPage($p)])>{{ $p->{$lang.'_title'} }}</a>
+                    @elseif ($href === '' && $headerPages->count() > 1)
+                        <div class="nav-drop">
+                            <button type="button" @class(['is-active' => $headerPages->contains($onPage)]) aria-haspopup="true">{{ __('front.company') }} <i class="fa-solid fa-chevron-down"></i></button>
+                            <div class="nav-drop-menu">
+                                @foreach ($headerPages as $p)
+                                    <a href="{{ $pageUrl($p) }}">{{ $p->{$lang.'_title'} }}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
             </nav>
 
             <div class="header-actions">
                 <a class="lang-switch" href="{{ LaravelLocalization::getLocalizedURL($otherLang) }}" hreflang="{{ $otherLang }}">
-                    <i class="fa-solid fa-globe"></i> {{ __('front.switch_lang') }}
+                    <i class="fa-solid fa-globe"></i> <span class="lang-long">{{ __('front.switch_lang') }}</span><span class="lang-short">{{ $otherLang === 'ar' ? 'ع' : 'EN' }}</span>
                 </a>
                 <a class="btn btn-primary btn-sm" href="{{ url($lang.'/calculator') }}">
                     <i class="fa-solid fa-calculator"></i> {{ __('front.calculate_cost') }}
@@ -86,6 +104,9 @@
                 <a href="{{ url($lang.($href ? '/'.$href : '')) }}" @class(['is-active' => $active($href)])>
                     <i class="fa-solid {{ $icon }}"></i> {{ __($label) }}
                 </a>
+            @endforeach
+            @foreach ($headerPages as $p)
+                <a href="{{ $pageUrl($p) }}" @class(['is-active' => $onPage($p)])><i class="fa-solid fa-circle-info"></i> {{ $p->{$lang.'_title'} }}</a>
             @endforeach
             <a href="{{ LaravelLocalization::getLocalizedURL($otherLang) }}"><i class="fa-solid fa-globe"></i> {{ __('front.switch_lang') }}</a>
             <a class="btn btn-primary btn-block" href="{{ url($lang.'/calculator') }}"><i class="fa-solid fa-calculator"></i> {{ __('front.calculate_cost') }}</a>
@@ -119,6 +140,9 @@
                     <ul>
                         @foreach ($nav as [$href, $label])
                             <li><a href="{{ url($lang.($href ? '/'.$href : '')) }}">{{ __($label) }}</a></li>
+                        @endforeach
+                        @foreach ($cmsPages as $p)
+                            <li><a href="{{ $pageUrl($p) }}">{{ $p->{$lang.'_title'} }}</a></li>
                         @endforeach
                     </ul>
                 </div>

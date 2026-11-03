@@ -26,6 +26,7 @@ class BusinessSetupSeeder extends Seeder
         $this->calculator();
         $this->partners();
         $this->posts();
+        $this->pages();
         $this->permissions();
         $this->fillUuids();
     }
@@ -255,6 +256,35 @@ class BusinessSetupSeeder extends Seeder
             DB::table('clients')->insert([
                 'ar_title' => $ar, 'en_title' => $en, 'image' => null, 'href' => null,
                 'ar_desc' => null, 'en_desc' => null, 'created_at' => now(), 'updated_at' => now(),
+            ]);
+        }
+    }
+
+    /** About / privacy / terms pages, first run only. "up" pages show in the header, "down" in the footer. */
+    private function pages(): void
+    {
+        if (DB::table('pages')->exists()) {
+            return;
+        }
+
+        $rows = [
+            ['up', 'من نحن', 'About us',
+                '<p>كلم فهيم شركة متخصصة في تأسيس الشركات وخدمات الأعمال في الإمارات العربية المتحدة. بنساعد رواد الأعمال والمستثمرين يبدأوا شغلهم بسرعة ومن غير تعقيد، من اختيار النشاط والمنطقة المناسبة لحد استلام الرخصة والإقامة وفتح الحساب البنكي.</p><h3>رسالتنا</h3><p>إن تأسيس شركتك يبقى تجربة واضحة: أسعار معلنة، خطوات مفهومة، وفريق بيرد عليك في نفس اليوم.</p><h3>ليه كلم فهيم؟</h3><ul><li>خبرة في المناطق الحرة والبر الرئيسي والأوفشور.</li><li>إنجاز المعاملات الحكومية بالنيابة عنك.</li><li>مدير علاقة مخصص ومتابعة على واتساب.</li></ul>',
+                '<p>Call Fahim specialises in company formation and business services in the United Arab Emirates. We help entrepreneurs and investors start trading quickly and without hassle, from choosing the right activity and zone to receiving the licence, residence visa and bank account.</p><h3>Our mission</h3><p>Make setting up your company a clear experience: published prices, understandable steps and a team that replies the same day.</p><h3>Why Call Fahim?</h3><ul><li>Experience across free zones, mainland and offshore.</li><li>Government transactions handled on your behalf.</li><li>A dedicated relationship manager and WhatsApp updates.</li></ul>'],
+            ['down', 'سياسة الخصوصية', 'Privacy policy',
+                '<p>بنجمع البيانات اللي بتبعتها لنا بنفسك بس، زي الاسم ورقم الموبايل والإيميل وتفاصيل حاسبة التكلفة، وبنستخدمها عشان نتواصل معاك ونجهز عرض السعر وننفذ الخدمات اللي طلبتها.</p><p>مش بنبيع بياناتك لأي طرف. ممكن نشاركها مع الجهات الحكومية أو المناطق الحرة أو البنوك بالقدر اللازم لإنجاز معاملتك فقط.</p><p>تقدر تطلب تعديل بياناتك أو مسحها في أي وقت عن طريق التواصل معانا.</p>',
+                '<p>We only collect the data you send us yourself, such as your name, mobile number, email and cost calculator details, and use it to contact you, prepare your quote and deliver the services you request.</p><p>We never sell your data. We may share it with government authorities, free zones or banks only as far as needed to complete your transaction.</p><p>You can ask us to update or delete your data at any time by contacting us.</p>'],
+            ['down', 'الشروط والأحكام', 'Terms & conditions',
+                '<p>الأسعار المعروضة في حاسبة التكلفة تقديرية، والسعر النهائي بيتأكد في عرض سعر مكتوب بعد الاستشارة.</p><p>الرسوم الحكومية ورسوم المناطق الحرة بتتحدد من الجهات المختصة وممكن تتغير من وقت للتاني.</p><p>مدد الإنجاز تقريبية وبتعتمد على اكتمال المستندات وموافقات الجهات المختصة.</p>',
+                '<p>Prices shown in the cost calculator are estimates; the final price is confirmed in a written quotation after your consultation.</p><p>Government and free zone fees are set by the relevant authorities and may change from time to time.</p><p>Processing times are approximate and depend on complete documents and approvals from the relevant authorities.</p>'],
+        ];
+
+        foreach ($rows as [$dept, $arTitle, $enTitle, $arDesc, $enDesc]) {
+            DB::table('pages')->insert([
+                'uuid' => (string) \Illuminate\Support\Str::uuid(),
+                'dept' => $dept, 'ar_title' => $arTitle, 'en_title' => $enTitle,
+                'ar_desc' => $arDesc, 'en_desc' => $enDesc, 'image' => '',
+                'created_at' => now(), 'updated_at' => now(),
             ]);
         }
     }

@@ -42,6 +42,7 @@
         <div class="box box-default">
             <div class="box-header"><h3 class="box-title" style="margin:0">{{ trans('layout.items') }}</h3></div>
             <div class="box-body">
+                <div class="cf-scroll">
                 <table class="table" id="itemsTable">
                     <thead><tr><th style="width:50%">{{ trans('layout.item_description') }}</th><th>{{ trans('layout.quantity') }}</th><th>{{ trans('layout.unit_price') }}</th><th>{{ trans('layout.line_total') }}</th><th></th></tr></thead>
                     <tbody>
@@ -56,6 +57,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
                 @if ($errors->has('items') || $errors->has('items.*'))
                     <div class="alert alert-danger">{{ $errors->first('items') ?: collect($errors->get('items.*'))->flatten()->first() }}</div>
                 @endif

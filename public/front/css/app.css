@@ -633,3 +633,55 @@ a.contact-item:hover { border-color: var(--copper); }
 .pay-strip .pay { margin: 0; border: 0; padding: 26px 0; }
 .pay--light .pay-head > i { background: var(--copper-3); color: var(--copper-deep); }
 .pay--light .pay-head small { color: var(--muted); }
+
+/* Header dropdown for CMS pages */
+.nav-drop { position: relative; }
+.nav-drop > button { border: 0; background: transparent; font: inherit; cursor: pointer; padding: 8px 12px; border-radius: 999px; font-weight: 500; font-size: .94rem; color: var(--ink-3); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.nav-drop > button i { font-size: .65rem; transition: transform .2s ease; }
+.nav-drop > button:hover, .nav-drop:focus-within > button { color: var(--ink); background: var(--sand); }
+.nav-drop > button.is-active { color: var(--copper-deep); background: var(--copper-3); }
+.nav-drop-menu {
+    position: absolute; top: calc(100% + 8px); inset-inline-start: 0; min-width: 220px; padding: 8px;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+    opacity: 0; visibility: hidden; transform: translateY(6px); transition: all .18s ease; z-index: 60;
+}
+.nav-drop-menu::before { content: ""; position: absolute; inset-inline: 0; top: -10px; height: 10px; }
+.nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu { opacity: 1; visibility: visible; transform: none; }
+.nav-drop:hover > button i, .nav-drop:focus-within > button i { transform: rotate(180deg); }
+.nav-drop-menu a { display: block; padding: 10px 12px; border-radius: 10px; color: var(--ink-3); font-weight: 500; white-space: nowrap; }
+.nav-drop-menu a:hover { background: var(--sand); color: var(--copper-deep); }
+/* Footer list styles must not turn the payment badges into a column. */
+.site-footer .pay .pay-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Partners strip on phones: smaller cards so 2–3 fit on screen */
+@media (max-width: 640px) {
+    .trusted { padding-block: 44px 8px; }
+    .trusted h2 { font-size: 1.05rem; margin-bottom: 20px; padding-inline: 8px; }
+    .marquee-track { gap: 10px; animation-duration: 28s; }
+    .partner { min-height: 54px; padding: 8px 14px; gap: 10px; border-radius: 14px; }
+    .partner img { height: 30px; max-width: 120px; object-fit: contain; }
+    .partner-mark { width: 32px; height: 32px; border-radius: 10px; font-size: .75rem; }
+    .partner-name b { font-size: .85rem; }
+    .partner-name small { display: none; }
+}
+.partner img { max-width: 160px; object-fit: contain; }
+
+/* Header fits seven items: compact language switch and tighter nav on mid-size screens */
+.lang-switch .lang-short { display: none; }
+@media (max-width: 1499px) {
+    .header-inner { gap: 14px; }
+    .main-nav a, .nav-drop > button { padding: 8px 10px; font-size: .92rem; }
+    .lang-switch .lang-long { display: none; }
+    .lang-switch .lang-short { display: inline; }
+}
+/* Long emails / numbers wrap instead of pushing cards off screen */
+.contact-item > span { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 1499px) { .brand-tag { display: none; } }
+@media (max-width: 1279px) {
+    .main-nav, .header-actions .lang-switch { display: none; }
+    .menu-toggle { display: inline-flex; }
+    .header-actions { margin-inline-start: auto; }
+    .brand-tag { display: block; }
+}
+@media (max-width: 640px) { .brand-tag { display: none; } }
+@media (min-width: 1500px) { .header-inner { max-width: 1440px; } }

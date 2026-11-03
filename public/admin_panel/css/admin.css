@@ -273,3 +273,14 @@ html[dir="rtl"] .cf-bar-row .track span { background: linear-gradient(-90deg, va
     .cf-dropdown { position: fixed; top: calc(var(--top-h) + 6px); inset-inline: 10px; width: auto; }
 }
 @media (hover: none) { .cf-add { opacity: .75; } }
+
+/* Wide tables scroll inside their card instead of stretching the page. */
+.box-body:has(> table.table), .cf-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.box-body > .table:not(.dataTable) { min-width: 520px; }
+#itemsTable { min-width: 620px; }
+.perm-matrix { min-width: 460px; }
+@media (max-width: 575px) {
+    .box-body .form-group.row > [class*="col-"] { flex: 0 0 100%; max-width: 100%; }
+    .box-body .form-group.row > .col-form-label { padding-bottom: 4px; }
+}
+.cf-content video, .cf-content img, .cf-content iframe { max-width: 100%; height: auto; }

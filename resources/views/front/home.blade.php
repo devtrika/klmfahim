@@ -94,7 +94,7 @@
             @foreach ([1, 2] as $pass)
                 @foreach ($partners as $p)
                     <div class="partner" @if ($pass === 2) aria-hidden="true" @endif>
-                        @if ($p->image)
+                        @if ($p->image && is_file(public_path('upload/clients/'.$p->image)))
                             <img src="{{ asset('upload/clients/'.$p->image) }}" alt="{{ $p->en_title }}" loading="lazy">
                         @else
                             <span class="partner-mark">{{ Str::upper(Str::substr(preg_replace('/[^A-Za-z]/', '', $p->en_title), 0, 2)) }}</span>
