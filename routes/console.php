@@ -3,15 +3,32 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
-Artisan::command('admin:create', function () {
-    $name = $this->ask('Name');
-    $email = $this->ask('Email');
-    $phone = $this->ask('Phone / username');
-    $password = $this->secret('Password (min 8 characters)');
+/*
+ * php artisan admin:create --name="Admin" --email=me@example.com --phone=+971500000000
+ *
+ * Works without a terminal (e.g. Forge "Commands"): any option left out is
+ * asked for when interactive; without a --password a strong one is generated
+ * and printed once.
+ */
+Artisan::command('admin:create {--name=} {--email=} {--phone=} {--password=}', function () {
+    $interactive = $this->input->isInteractive() && stream_isatty(STDIN);
+    $value = fn (string $key, string $question) => $this->option($key) ?: ($interactive ? $this->ask($question) : null);
 
-    if (! $email || ! $phone || strlen((string) $password) < 8) {
-        return $this->error('Email, phone and a password of at least 8 characters are required.');
+    $name = $value('name', 'Name') ?: 'Admin';
+    $email = $value('email', 'Email');
+    $phone = $value('phone', 'Phone / username');
+    $password = $this->option('password') ?: ($interactive ? $this->secret('Password (leave empty to generate one)') : null);
+
+    $generated = false;
+    if (! $password) {
+        $password = Str::password(16, symbols: false);
+        $generated = true;
+    }
+
+    if (! $email || ! $phone || strlen($password) < 8) {
+        return $this->error('Pass --email and --phone (and a --password of 8+ characters, or leave it out to generate one).');
     }
     if (User::where('email', $email)->orWhere('username', $phone)->exists()) {
         return $this->error('A user with this email or username already exists.');
@@ -20,7 +37,7 @@ Artisan::command('admin:create', function () {
     $user = new User;
     $user->forceFill([
         'group_id' => (int) config('permissions.super_group'),
-        'name' => $name ?: 'Admin',
+        'name' => $name,
         'username' => $phone,
         'email' => $email,
         'phone' => $phone,
@@ -30,5 +47,11 @@ Artisan::command('admin:create', function () {
         'seen' => 'no',
     ])->save();
 
-    $this->info("Admin created. Log in at ".url('trika/login')." with username {$phone}.");
+    $this->info('Admin created.');
+    $this->line('Login:    '.url('en/trika/login'));
+    $this->line("Username: {$phone}");
+    if ($generated) {
+        $this->line("Password: {$password}");
+        $this->warn('Save this password now; it is not shown again. You can change it from the admin panel.');
+    }
 })->purpose('Create an admin user in the top admin group');
