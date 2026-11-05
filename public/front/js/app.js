@@ -228,4 +228,104 @@
         build();
         start();
     });
+
+    // Voice player: position survives moving between pages for this visit
+    var player = $('#voicePlayer');
+    if (player) {
+        var store = {
+            get: function (k) { try { return sessionStorage.getItem('voice.' + k); } catch (e) { return null; } },
+            set: function (k, v) { try { sessionStorage.setItem('voice.' + k, v); } catch (e) {} }
+        };
+        var audio = new Audio();
+        audio.preload = 'none';
+        audio.src = player.dataset.src;
+
+        var toggle = $('[data-player-toggle]', player);
+        var seek = $('[data-player-seek]', player);
+        var volume = $('[data-player-volume]', player);
+        var mute = $('[data-player-mute]', player);
+        var current = $('[data-player-current]', player);
+        var total = $('[data-player-total]', player);
+        var length = parseFloat(player.dataset.duration);
+        var position = parseFloat(store.get('time')) || 0;
+        var seeking = false;
+
+        var clock = function (t) { t = Math.floor(t || 0); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); };
+        var fill = function (range) { range.style.setProperty('--fill', (range.value - range.min) / (range.max - range.min) * 100 + '%'); };
+        var paint = function () {
+            if (!seeking) seek.value = position;
+            current.textContent = clock(position);
+            fill(seek);
+        };
+        var moveTo = function (t) {
+            position = Math.max(0, Math.min(length, t));
+            // Until the file has loaded, position is applied on loadedmetadata.
+            if (audio.readyState > 0) audio.currentTime = position;
+            store.set('time', position);
+            paint();
+        };
+        var setPlaying = function (on) {
+            player.classList.toggle('is-playing', on);
+            $('i', toggle).className = 'fa-solid ' + (on ? 'fa-pause' : 'fa-play');
+            toggle.setAttribute('aria-label', toggle.dataset[on ? 'pauseLabel' : 'playLabel']);
+            store.set('playing', on ? '1' : '');
+        };
+
+        audio.addEventListener('loadedmetadata', function () {
+            if (isFinite(audio.duration)) {
+                length = audio.duration;
+                seek.max = length;
+                total.textContent = clock(length);
+            }
+            if (position) audio.currentTime = position;
+        });
+        audio.addEventListener('timeupdate', function () {
+            if (audio.seeking) return;
+            position = audio.currentTime;
+            store.set('time', position);
+            paint();
+        });
+        audio.addEventListener('play', function () { setPlaying(true); });
+        audio.addEventListener('pause', function () { setPlaying(false); });
+        audio.addEventListener('ended', function () { setPlaying(false); moveTo(0); });
+
+        toggle.addEventListener('click', function () { if (audio.paused) audio.play(); else audio.pause(); });
+        $$('[data-player-skip]', player).forEach(function (b) {
+            b.addEventListener('click', function () { moveTo(position + parseFloat(b.dataset.playerSkip)); });
+        });
+        seek.addEventListener('input', function () {
+            seeking = true;
+            current.textContent = clock(seek.value);
+            fill(seek);
+        });
+        seek.addEventListener('change', function () { seeking = false; moveTo(parseFloat(seek.value)); });
+
+        var applyVolume = function () {
+            audio.volume = parseFloat(volume.value);
+            var silent = audio.muted || audio.volume === 0;
+            $('i', mute).className = 'fa-solid ' + (silent ? 'fa-volume-xmark' : 'fa-volume-high');
+            fill(volume);
+        };
+        volume.addEventListener('input', function () { audio.muted = false; applyVolume(); });
+        mute.addEventListener('click', function () { audio.muted = !audio.muted; applyVolume(); });
+
+        $('[data-player-close]', player).addEventListener('click', function () {
+            audio.pause();
+            player.hidden = true;
+            doc.body.classList.remove('has-player');
+            store.set('closed', '1');
+        });
+
+        if (!store.get('closed')) {
+            player.hidden = false;
+            doc.body.classList.add('has-player');
+            applyVolume();
+            paint();
+            // Carry on after a page change; browsers may refuse, then it just waits for a tap.
+            if (store.get('playing')) {
+                var resume = audio.play();
+                if (resume) resume.catch(function () { setPlaying(false); });
+            }
+        }
+    }
 })();

@@ -148,4 +148,12 @@ return [
     'pay_title' => 'دفع إلكتروني آمن',
     'pay_note' => 'ادفع بالبطاقة أو Apple Pay، أو قسّطها على دفعات مع تابي وتمارا.',
     'company' => 'الشركة',
+    'voice_title' => 'رسالة صوتية من كلم فهيم',
+    'voice_play' => 'تشغيل',
+    'voice_pause' => 'إيقاف مؤقت',
+    'voice_back' => 'رجوع 10 ثواني',
+    'voice_forward' => 'تقديم 10 ثواني',
+    'voice_mute' => 'كتم الصوت',
+    'voice_volume' => 'مستوى الصوت',
+    'voice_close' => 'إغلاق المشغل',
 ];
