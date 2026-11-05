@@ -89,11 +89,11 @@ class Site extends Model {
         $site->phone = $data['phone'];
         $site->mobile = $data['mobile'];
         $site->fax = $data['fax'] ?? 0;
-        $site->facebook = $data['facebook'];
-        $site->twitter = $data['twitter'];
-        $site->google = $data['google'];
-        $site->youtube = $data['youtube'];
-        $site->instagram = $data['instagram'];
+        $site->facebook = $data['facebook'] ?? '';
+        $site->twitter = $data['twitter'] ?? '';
+        $site->google = $data['google'] ?? '';
+        $site->youtube = $data['youtube'] ?? '';
+        $site->instagram = $data['instagram'] ?? '';
         $site->linkedin = $data['linkedin'];
         $site->desc = $data['desc'];
         $site->whatsapp = $data['whatsapp'];
