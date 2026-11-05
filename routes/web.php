@@ -33,7 +33,9 @@ Route::get('reload-captcha', [HomeController::class, 'reloadCaptcha']);
 Route::group(['prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
         ], function () {
-            Auth::routes(['register' => false]);
+            // No client accounts: only password reset is kept, sign-in lives under /trika.
+            Auth::routes(['register' => false, 'login' => false, 'logout' => false]);
+            Route::get('login', fn () => redirect(app()->getLocale().'/trika/login'))->name('login');
 
             Route::group(array('prefix' => 'trika', 'middleware' => 'admin'), function () {
                 Route::resource('patient', PatientController::class)->except('show')->middleware('role:patient');

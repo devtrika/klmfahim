@@ -25,7 +25,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/reset_suc';
+    protected $redirectTo = '/trika';
 
     /**
      * Create a new controller instance.
