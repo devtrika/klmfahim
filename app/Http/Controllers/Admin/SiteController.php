@@ -71,7 +71,14 @@ class SiteController extends Controller {
             $footer = Str::random(5) . '.' . $file->getClientOriginalName();
             $file->move($destinationPath, $footer);
         }
-        $this->site->edit($request, $logo, $first, $second, $third, $footer, $video);
+        $voice = FALSE;
+        if ($request->hasFile('voice')) {
+            $file = $request['voice'];
+            $extension = $file->guessExtension();
+            $voice = 'upload/voice/' . Str::random(20) . '.' . ($extension === 'mpga' ? 'mp3' : $extension);
+            $file->move(public_path('upload/voice'), basename($voice));
+        }
+        $this->site->edit($request, $logo, $first, $second, $third, $footer, $video, $voice);
         $message = trans('layout.edit_suc');
         return back()->with(['message' => $message]);
     }

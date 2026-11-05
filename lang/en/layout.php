@@ -553,4 +553,8 @@ return [
     'empty_messages' => 'No new messages.',
     'logo_hint' => 'Square icon shown in the header next to the site name and slogan, in the admin and as the browser icon.',
     'logofooter_hint' => 'Light logo shown on the dark footer and the admin login page.',
+    'voice' => 'Audio file',
+    'voice_title' => 'Audio title',
+    'voice_hint' => 'Plays in the bar at the bottom of the site. mp3, m4a or wav, up to 30 MB.',
+    'voice_remove' => 'Remove the audio and hide the player',
 ];

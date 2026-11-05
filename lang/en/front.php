@@ -148,7 +148,6 @@ return [
     'pay_title' => 'Secure online payments',
     'pay_note' => 'Pay by card or Apple Pay, or split it into instalments with Tabby and Tamara.',
     'company' => 'Company',
-    'voice_title' => 'A voice message from Call Fahim',
     'voice_play' => 'Play',
     'voice_pause' => 'Pause',
     'voice_back' => 'Back 10 seconds',

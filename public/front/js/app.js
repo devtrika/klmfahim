@@ -237,7 +237,7 @@
             set: function (k, v) { try { sessionStorage.setItem('voice.' + k, v); } catch (e) {} }
         };
         var audio = new Audio();
-        audio.preload = 'none';
+        audio.preload = 'metadata';
         audio.src = player.dataset.src;
 
         var toggle = $('[data-player-toggle]', player);
@@ -246,7 +246,7 @@
         var mute = $('[data-player-mute]', player);
         var current = $('[data-player-current]', player);
         var total = $('[data-player-total]', player);
-        var length = parseFloat(player.dataset.duration);
+        var length = Infinity;
         var position = parseFloat(store.get('time')) || 0;
         var seeking = false;
 
@@ -277,7 +277,9 @@
                 seek.max = length;
                 total.textContent = clock(length);
             }
+            position = Math.min(position, length);
             if (position) audio.currentTime = position;
+            paint();
         });
         audio.addEventListener('timeupdate', function () {
             if (audio.seeking) return;

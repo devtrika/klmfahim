@@ -361,6 +361,31 @@ if ($lang == "ar") {
 
                         </div>
 
+                        <div class="form-group row">
+                            <label for="voice_title" class="col-sm-2 col-form-label">{{trans('layout.voice_title')}}</label>
+                            <div class="col-sm-4">
+                                {{ Form::text('voice_title', $site['voice_title'], ['class'=>'form-control','id'=>'voice_title','dir'=>'auto']) }}
+                                @if($errors->has('voice_title'))
+                                <div class="alert alert-danger">{{$errors->first('voice_title')}}</div>
+                                @endif
+                            </div>
+                            <label for="voice" class="col-sm-2 col-form-label">{{trans('layout.voice')}}</label>
+                            <div class="col-sm-4">
+                                {{ Form::file('voice',['class'=>'form-control','id'=>'voice','accept'=>'audio/*']) }}
+                                <small class="form-text text-muted">{{ trans('layout.voice_hint') }}</small>
+                                @if($errors->has('voice'))
+                                <div class="alert alert-danger">{{$errors->first('voice')}}</div>
+                                @endif
+                                @if ($site->voiceUrl())
+                                <audio class="mt-2" style="width:100%" controls preload="metadata" src="{{ $site->voiceUrl() }}"></audio>
+                                <label class="d-flex align-items-center mt-2 mb-0" style="gap:8px;cursor:pointer">
+                                    <input type="checkbox" name="remove_voice" value="1">
+                                    <span>{{ trans('layout.voice_remove') }}</span>
+                                </label>
+                                @endif
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -22,6 +22,7 @@ class Site extends Model {
         'whatsapp' => 'https://wa.me/971525215982',
         'lat' => 'https://www.google.com/maps?q=Dubai%2C%20United%20Arab%20Emirates&output=embed',
         'facebook' => '', 'twitter' => '', 'google' => '', 'youtube' => '', 'instagram' => '',
+        'voice' => 'brand/voice.mp3', 'voice_title' => 'Call Fahim Official Song',
         'currency' => 'AED', 'vat_rate' => 5, 'base' => 1890, 'branches' => 12, 'structure' => 50, 'mantis' => 60,
     ];
 
@@ -45,6 +46,12 @@ class Site extends Model {
         return $this->fileUrl('footer', 'brand/logo-light.png');
     }
 
+    /** The track for the bottom player, or null when there is none. */
+    public function voiceUrl(): ?string
+    {
+        return $this->voice && is_file(public_path($this->voice)) ? asset($this->voice) : null;
+    }
+
     private function fileUrl(string $field, string $fallback): string
     {
         $file = $this->$field;
@@ -65,7 +72,7 @@ class Site extends Model {
         return $this->first();
     }
 
-    public function edit($data, $logo = false, $first = false, $second = false, $third = false, $footer = false,$video=false) {
+    public function edit($data, $logo = false, $first = false, $second = false, $third = false, $footer = false,$video=false,$voice=false) {
         $site = $this->first();
         $site->ar_title = $data['ar_title'];
         $site->en_title = $data['en_title'];
@@ -98,7 +105,7 @@ class Site extends Model {
         $site->en_office = $data['en_office'];
         $site->second = $data['second'];
         $site->first = $data['first'];
-        foreach (['ar_slogan', 'en_slogan', 'trn', 'vat_rate'] as $field) {
+        foreach (['ar_slogan', 'en_slogan', 'trn', 'vat_rate', 'voice_title'] as $field) {
             if (isset($data[$field])) {
                 $site->$field = $data[$field];
             }
@@ -127,6 +134,10 @@ class Site extends Model {
         if ($footer) {
             $this->dropFile($site->footer);
             $site->footer = $footer;
+        }
+        if ($voice || ! empty($data['remove_voice'])) {
+            $this->dropFile($site->voice);
+            $site->voice = $voice ?: null;
         }
         return $site->save();
     }

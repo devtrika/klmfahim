@@ -32,6 +32,8 @@ class UpdateSite extends FormRequest {
             "mobile" => "required",
 //            "fax" => "required",
             "email" => "required|email",
+            "voice" => "nullable|file|mimes:mp3,mpga,m4a,mp4,wav,ogg,oga,aac|max:30720",
+            "voice_title" => "nullable|max:120",
             
 //            "logo" => "image|mimes:jpeg,jpg,png,bmp,gif,svg",
 //            "first" => "image|mimes:jpeg,jpg,png,bmp,gif,svg",

@@ -179,8 +179,9 @@
         </div>
     </footer>
 
-    {{-- Voice message player, fixed at the bottom of every page --}}
-    <div class="player" id="voicePlayer" data-src="{{ asset('brand/voice.mp3') }}" data-duration="136" dir="ltr" role="region" aria-label="{{ __('front.voice_title') }}" hidden>
+    {{-- Audio player fixed at the bottom of every page; the track is set in the site settings --}}
+    @if ($site->voiceUrl())
+    <div class="player" id="voicePlayer" data-src="{{ $site->voiceUrl() }}" dir="ltr" role="region" aria-label="{{ $site->voice_title }}" hidden>
         <div class="player-controls">
             <button type="button" class="player-btn player-skip" data-player-skip="-10" aria-label="{{ __('front.voice_back') }}"><i class="fa-solid fa-rotate-left"></i></button>
             <button type="button" class="player-play" data-player-toggle aria-label="{{ __('front.voice_play') }}" data-play-label="{{ __('front.voice_play') }}" data-pause-label="{{ __('front.voice_pause') }}"><i class="fa-solid fa-play"></i></button>
@@ -188,8 +189,8 @@
         </div>
         <div class="player-track">
             <span class="player-time" data-player-current>0:00</span>
-            <input class="player-range" type="range" min="0" max="136" step="0.1" value="0" data-player-seek aria-label="{{ __('front.voice_title') }}">
-            <span class="player-time" data-player-total>2:16</span>
+            <input class="player-range" type="range" min="0" max="100" step="0.1" value="0" data-player-seek aria-label="{{ $site->voice_title }}">
+            <span class="player-time" data-player-total>0:00</span>
         </div>
         <div class="player-volume">
             <button type="button" class="player-btn" data-player-mute aria-label="{{ __('front.voice_mute') }}"><i class="fa-solid fa-volume-high"></i></button>
@@ -197,10 +198,11 @@
         </div>
         <div class="player-info">
             <img src="{{ $site->logoUrl() }}" alt="" width="42" height="42">
-            <span class="player-text" dir="auto"><small>{{ $site->en_title }}</small><b>{{ __('front.voice_title') }}</b></span>
+            <span class="player-text" dir="auto"><small>{{ $site->en_slogan }}</small><b>{{ $site->voice_title }}</b></span>
         </div>
         <button type="button" class="player-btn player-close" data-player-close aria-label="{{ __('front.voice_close') }}"><i class="fa-solid fa-xmark"></i></button>
     </div>
+    @endif
 
     <a class="wa-float" href="{{ $whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
